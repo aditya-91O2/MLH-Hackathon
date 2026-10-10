@@ -1,0 +1,63 @@
+{
+  "gemma_extraction": {
+    "reply": "I've successfully parsed your timetable! Here are the courses I found. Please confirm the ones you are enrolled in.",
+    "extracted_data": {
+      "courses": [
+        { "code": "CSL202", "name": "Data Structures", "instructor": "Dr. Alan Turing", "exam_date": "2026-09-21" },
+        { "code": "CSL201", "name": "Discrete Mathematics", "instructor": "Prof. Ada Lovelace", "exam_date": "2026-09-20" },
+        { "code": "MAL403", "name": "Probability and Statistics", "instructor": "Dr. John von Neumann", "exam_date": "2026-09-18" },
+        { "code": "CSP203", "name": "Software Tools Lab", "instructor": "Prof. Grace Hopper", "exam_date": "2026-09-23" }
+      ],
+      "study_hours": 4,
+      "start_date": "2026-09-10"
+    }
+  },
+  "gemma_topics": {
+    "reply": "I have mapped out the core topics for your selected courses. You can exclude topics you already know. Also, upload any class slides/syllabus PDFs below, and let me know if you need curated video explanations!",
+    "topics": [
+      { "course": "Data Structures", "topic": "Stacks, Queues, Lists", "included": true },
+      { "course": "Data Structures", "topic": "Sorting and Searching", "included": true },
+      { "course": "Data Structures", "topic": "Trees and Graph Traversals", "included": true },
+      { "course": "Discrete Mathematics", "topic": "Propositional Logic", "included": true },
+      { "course": "Discrete Mathematics", "topic": "Graph Theory", "included": true }
+    ]
+  },
+  "gemma_materials": {
+    "reply": "I've analyzed your uploaded documents and found the best video explanations on YouTube and NPTEL to supplement them.",
+    "videos": [
+      { "title": "Graph Traversals (BFS & DFS) - NPTEL IIT Delhi", "platform": "NPTEL", "url": "https://nptel.ac.in/courses/106/106/106106127/" },
+      { "title": "Data Structures: Linked Lists", "platform": "YouTube", "url": "https://youtube.com/watch?v=demo1" },
+      { "title": "Discrete Math: Propositional Logic Masterclass", "platform": "YouTube", "url": "https://youtube.com/watch?v=demo2" }
+    ]
+  },
+  "gemma_planner": {
+    "reply": "Here is your highly detailed, day-by-day study roadmap. I've broken down the topics so you know exactly what to cover and when.",
+    "study_plan": [
+      {
+        "date": "2026-09-10",
+        "total_hours": 4,
+        "blocks": [
+          { "time_range": "09:00 - 11:00", "course": "Data Structures", "type": "study", "topics": ["Introduction to ADTs", "Stacks: Arrays vs Linked Lists", "Queues and Deques"], "hours": 2, "reference": "NPTEL Lecture 4 & 5" },
+          { "time_range": "15:00 - 17:00", "course": "Probability and Statistics", "type": "study", "topics": ["Random Variables", "Discrete Distributions", "Poisson Process"], "hours": 2 }
+        ]
+      },
+      {
+        "date": "2026-09-11",
+        "total_hours": 4,
+        "blocks": [
+          { "time_range": "10:00 - 12:00", "course": "Data Structures", "type": "study", "topics": ["Bubble, Insertion, Selection Sort", "Merge Sort Complexity", "Quick Sort Partitioning"], "hours": 2, "reference": "YouTube: CS50 Sorting Algorithms" },
+          { "time_range": "14:00 - 16:00", "course": "Discrete Mathematics", "type": "study", "topics": ["Truth Tables", "Logical Equivalences", "Predicates & Quantifiers"], "hours": 2, "reference": "Uploaded Class PPT: Logic.pdf" }
+        ]
+      },
+      {
+        "date": "2026-09-12",
+        "total_hours": 4,
+        "blocks": [
+          { "time_range": "08:00 - 10:00", "course": "Data Structures", "type": "study", "topics": ["Binary Trees", "Inorder, Preorder, Postorder", "BST Insert/Delete"], "hours": 2, "reference": "YouTube: Binary Trees in Python" },
+          { "time_range": "11:00 - 12:00", "course": "Data Structures", "type": "revision", "topics": ["Stacks and Queues Practice Problems"], "hours": 1 },
+          { "time_range": "18:00 - 19:00", "type": "buffer", "note": "Catch-up time / Take a mock quiz", "hours": 1 }
+        ]
+      }
+    ]
+  }
+}

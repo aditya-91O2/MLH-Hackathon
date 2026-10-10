@@ -1,0 +1,18 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "A lightweight, AI-powered study planner website that helps students generate a day-wise study plan based on their exam timetable and study resources.",
+  "main": "apiClient.js",
+  "scripts": {
+  "dev": "vite --host 0.0.0.0",
+  "build": "vite build",
+  "preview": "vite preview"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "vite": "^8.3.4"
+  }
+}
