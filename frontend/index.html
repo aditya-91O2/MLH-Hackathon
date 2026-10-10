@@ -26,14 +26,26 @@
             <div id="chat-history" class="chat-history">
                 <!-- Initial Welcome -->
                 <div class="message assistant">
-                    <p>Welcome! I'm your AI study assistant. Please upload your exam timetable (PDF or Image) to begin building your personalized study roadmap.</p>
+                    <p>Welcome! I'm your AI study assistant. To begin building your personalized study roadmap, please provide the following three documents:</p>
                     
-                    <div class="upload-area mt-4" id="initial-upload-area">
-                        <label for="initial-upload" class="upload-box">
-                            <span class="upload-icon">📄</span>
-                            <span class="upload-text">Click to upload Timetable</span>
-                            <input type="file" id="initial-upload" accept="image/*,.pdf" class="hidden">
-                        </label>
+                    <div class="upload-area mt-4" id="initial-upload-area" style="display:flex; flex-direction:column; gap:12px;">
+                        
+                        <div style="border: 1px solid var(--border-color); border-radius: var(--r-sm); padding: 14px; background: #fafbff;">
+                            <h5 style="margin-bottom: 8px; color: var(--indigo-dark);">1. Exam Timetable</h5>
+                            <input type="file" id="upload-exam-tt" accept=".pdf,image/*" style="font-size:0.9rem;">
+                        </div>
+                        
+                        <div style="border: 1px solid var(--border-color); border-radius: var(--r-sm); padding: 14px; background: #fafbff;">
+                            <h5 style="margin-bottom: 8px; color: var(--indigo-dark);">2. Master Timetable</h5>
+                            <input type="file" id="upload-master-tt" accept=".pdf,image/*" style="font-size:0.9rem;">
+                        </div>
+
+                        <div style="border: 1px solid var(--border-color); border-radius: var(--r-sm); padding: 14px; background: #fafbff;">
+                            <h5 style="margin-bottom: 8px; color: var(--indigo-dark);">3. Course of Study</h5>
+                            <input type="file" id="upload-course-study" accept=".pdf,image/*" style="font-size:0.9rem;">
+                        </div>
+
+                        <button id="start-processing-btn" class="btn btn-primary mt-2 w-full">Start Processing Documents</button>
                     </div>
                 </div>
             </div>
