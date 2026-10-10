@@ -2,7 +2,11 @@ from datetime import datetime, date, timedelta
 from typing import List, Dict, Any, Optional
 from pydantic import BaseModel, Field
 
-from llm import llm
+try:
+    from llm import llm
+except (ImportError, ValueError):
+    from .llm import llm
+
 
 class TopicStudyItem(BaseModel):
     course_code: str

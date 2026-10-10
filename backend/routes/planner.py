@@ -3,13 +3,23 @@ from datetime import date
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-from planner import generate_study_plan, StudyPlanResponse
-from parsers.timetable_parser import (
-    generate_personal_schedule,
-    get_active_timetable,
-    MasterTimetable
-)
-from parsers.curriculum_parser import get_course_by_code
+try:
+    from planner import generate_study_plan, StudyPlanResponse
+    from parsers.timetable_parser import (
+        generate_personal_schedule,
+        get_active_timetable,
+        MasterTimetable
+    )
+    from parsers.curriculum_parser import get_course_by_code
+except (ImportError, ValueError):
+    from ..planner import generate_study_plan, StudyPlanResponse
+    from ..parsers.timetable_parser import (
+        generate_personal_schedule,
+        get_active_timetable,
+        MasterTimetable
+    )
+    from ..parsers.curriculum_parser import get_course_by_code
+
 import os
 import json
 

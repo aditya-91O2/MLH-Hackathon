@@ -3,19 +3,35 @@ from typing import List, Optional
 from fastapi import APIRouter, UploadFile, File, HTTPException
 from pydantic import BaseModel
 
-from parsers.timetable_parser import (
-    MasterTimetable,
-    PersonalTimetableResponse,
-    parse_timetable_pdf,
-    parse_timetable_text,
-    generate_personal_schedule,
-    get_active_timetable,
-    set_active_timetable,
-)
-from parsers.curriculum_parser import (
-    sync_courses_from_timetable,
-    reset_courses_to_default,
-)
+try:
+    from parsers.timetable_parser import (
+        MasterTimetable,
+        PersonalTimetableResponse,
+        parse_timetable_pdf,
+        parse_timetable_text,
+        generate_personal_schedule,
+        get_active_timetable,
+        set_active_timetable,
+    )
+    from parsers.curriculum_parser import (
+        sync_courses_from_timetable,
+        reset_courses_to_default,
+    )
+except (ImportError, ValueError):
+    from ..parsers.timetable_parser import (
+        MasterTimetable,
+        PersonalTimetableResponse,
+        parse_timetable_pdf,
+        parse_timetable_text,
+        generate_personal_schedule,
+        get_active_timetable,
+        set_active_timetable,
+    )
+    from ..parsers.curriculum_parser import (
+        sync_courses_from_timetable,
+        reset_courses_to_default,
+    )
+
 
 router = APIRouter(prefix="/api/timetable", tags=["Timetable"])
 

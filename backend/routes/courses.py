@@ -2,14 +2,25 @@ from typing import List, Optional
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel
 
-from parsers.curriculum_parser import (
-    get_semester_courses,
-    get_course_by_code,
-    get_active_courses,
-    load_default_courses,
-    CourseDetail,
-    TopicItem
-)
+try:
+    from parsers.curriculum_parser import (
+        get_semester_courses,
+        get_course_by_code,
+        get_active_courses,
+        load_default_courses,
+        CourseDetail,
+        TopicItem
+    )
+except (ImportError, ValueError):
+    from ..parsers.curriculum_parser import (
+        get_semester_courses,
+        get_course_by_code,
+        get_active_courses,
+        load_default_courses,
+        CourseDetail,
+        TopicItem
+    )
+
 
 router = APIRouter(prefix="/api/courses", tags=["Courses & Curriculum"])
 

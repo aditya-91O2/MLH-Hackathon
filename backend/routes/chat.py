@@ -7,7 +7,12 @@ Returns: answer, citations, intent, video_recommendations.
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 from typing import Optional
-from ..rag import query_rag, normalize_course_code
+
+try:
+    from rag import query_rag, normalize_course_code
+except (ImportError, ValueError):
+    from ..rag import query_rag, normalize_course_code
+
 
 router = APIRouter(prefix="/api/chat", tags=["chat"])
 

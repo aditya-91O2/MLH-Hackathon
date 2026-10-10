@@ -18,11 +18,14 @@ app.add_middleware(
 from routes.timetable import router as timetable_router
 from routes.courses import router as courses_router
 from routes.planner import router as planner_router
+from routes.chat import router as chat_router
 
 # Include API Routers
 app.include_router(timetable_router)
 app.include_router(courses_router)
 app.include_router(planner_router)
+app.include_router(chat_router)
+
 
 
 
