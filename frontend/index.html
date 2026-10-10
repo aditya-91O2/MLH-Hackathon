@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Planner Agent</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="app-header">
+        <div class="container">
+            <h1>Study Planner</h1>
+            <p class="subtitle">Your conversational AI study assistant</p>
+        </div>
+    </header>
+
+    <main class="container layout-grid">
+        <!-- Main Chat Area -->
+        <section class="chat-section card">
+            <div id="chat-history" class="chat-history">
+                <div class="message assistant">
+                    <p>Hello! I can help you create a personalized study plan. To get started, you can tell me about your exams, upload your timetable, or let me know how many hours you can study each day.</p>
+                </div>
+            </div>
+            
+            <div class="chat-composer">
+                <div class="chat-input-wrapper">
+                    <textarea id="chat-input" rows="2" placeholder="Type a message or paste text..."></textarea>
+                    <div class="chat-actions">
+                        <label for="chat-attach" class="btn btn-secondary attach-btn">📎 Attach File</label>
+                        <input type="file" id="chat-attach" accept="image/png, image/jpeg, image/webp, .txt" class="hidden">
+                        <span id="attach-label" class="attach-label"></span>
+                        <button id="chat-send" class="btn btn-primary">Send</button>
+                    </div>
+                </div>
+                <p id="chat-error" class="error-message hidden"></p>
+            </div>
+        </section>
+
+        <!-- Context & Review Area -->
+        <aside class="context-section">
+            <div class="card summary-card">
+                <h3>Study Context</h3>
+                <ul id="context-summary" class="context-list">
+                    <li><strong>Start Date:</strong> <span id="summary-start-date">Pending</span></li>
+                    <li><strong>Study Hours/Day:</strong> <span id="summary-study-hours">Pending</span></li>
+                    <li><strong>Courses Identified:</strong> <span id="summary-course-count">0</span></li>
+                </ul>
+            </div>
+
+            <!-- Course Table (Initially hidden) -->
+            <div id="courses-card" class="card hidden">
+                <h3>Review Courses</h3>
+                <p class="section-desc">Please review dates and enter credits.</p>
+                <div class="table-container">
+                    <table id="courses-table">
+                        <thead>
+                            <tr>
+                                <th>Course Name</th>
+                                <th>Exam Date</th>
+                                <th>Credits</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="courses-body">
+                            <!-- Rows -->
+                        </tbody>
+                    </table>
+                    <button id="add-course-btn" class="btn btn-secondary mt-2 btn-sm">+ Add Course</button>
+                </div>
+            </div>
+            
+            <div id="plan-card" class="card hidden">
+                <h3>Study Plan</h3>
+                <div class="placeholder-box">
+                    <p>Plan generation in next phase.</p>
+                </div>
+                <button id="print-btn" class="btn btn-secondary mt-4">Print / Save as PDF</button>
+            </div>
+        </aside>
+    </main>
+
+    <script src="apiClient.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
