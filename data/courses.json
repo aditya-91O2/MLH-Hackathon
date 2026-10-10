@@ -1,0 +1,132 @@
+[
+  {
+    "code": "MAL403",
+    "name": "Probability and Statistics",
+    "credits": 4.0,
+    "ltp": "3-1-0",
+    "prerequisites": [],
+    "aliases": ["IC105"],
+    "instructors": ["Dr. Lakshmi Kanta Patra"],
+    "is_offered_this_sem": true,
+    "source": "CourseOfStudy",
+    "syllabus_raw": "Axioms of probability, random variables, distribution functions, mathematical expectations, law of large numbers, central limit theorem, hypothesis testing.",
+    "topics": [
+      { "id": "mal403_1", "title": "Axioms of Probability and Conditional Probability", "subtopics": ["Bayes Theorem", "Independent Events"], "in_syllabus": true },
+      { "id": "mal403_2", "title": "Random Variables and Distribution Functions", "subtopics": ["Binomial", "Poisson", "Gaussian/Normal"], "in_syllabus": true },
+      { "id": "mal403_3", "title": "Expectation, Variance, and Moments", "subtopics": ["Moment Generating Functions", "Covariance"], "in_syllabus": true },
+      { "id": "mal403_4", "title": "Limit Theorems: Law of Large Numbers & CLT", "subtopics": ["Weak Law of Large Numbers", "Central Limit Theorem"], "in_syllabus": true },
+      { "id": "mal403_5", "title": "Confidence Intervals & Hypothesis Testing", "subtopics": ["Null Hypothesis", "p-values", "t-tests"], "in_syllabus": true }
+    ]
+  },
+  {
+    "code": "CSL201",
+    "name": "Discrete Mathematics",
+    "credits": 4.0,
+    "ltp": "3-1-0",
+    "prerequisites": [],
+    "aliases": ["MAL503"],
+    "instructors": ["Dr. Rishi Ranjan Singh"],
+    "is_offered_this_sem": true,
+    "source": "CourseOfStudy",
+    "syllabus_raw": "Sets, relations, functions, propositional and predicate logic, combinatorics, recurrence relations, graph theory.",
+    "topics": [
+      { "id": "csl201_1", "title": "Propositional and First-Order Predicate Logic", "subtopics": ["Truth Tables", "Inference Rules"], "in_syllabus": true },
+      { "id": "csl201_2", "title": "Set Theory, Relations, and Equivalence", "subtopics": ["Partial Orders", "Lattices"], "in_syllabus": true },
+      { "id": "csl201_3", "title": "Combinatorics and Pigeonhole Principle", "subtopics": ["Permutations", "Combinations"], "in_syllabus": true },
+      { "id": "csl201_4", "title": "Recurrence Relations & Generating Functions", "subtopics": ["Homogeneous Relations", "Master Theorem"], "in_syllabus": true },
+      { "id": "csl201_5", "title": "Graph Theory, Trees, and Eulerian/Hamiltonian Circuits", "subtopics": ["Spanning Trees", "Planar Graphs"], "in_syllabus": true }
+    ]
+  },
+  {
+    "code": "CSL202",
+    "name": "Data Structures",
+    "credits": 4.0,
+    "ltp": "3-0-2",
+    "prerequisites": [],
+    "aliases": ["MAL504"],
+    "instructors": ["Prof. Souradyuti Paul"],
+    "is_offered_this_sem": true,
+    "source": "CourseOfStudy",
+    "syllabus_raw": "Asymptotic analysis, lists, stacks, queues, trees, search trees, heaps, graphs, hashing, sorting.",
+    "topics": [
+      { "id": "csl202_1", "title": "Asymptotic Analysis & Big-O Notation", "subtopics": ["Time Complexity", "Space Complexity"], "in_syllabus": true },
+      { "id": "csl202_2", "title": "Arrays, Linked Lists, Stacks, and Queues", "subtopics": ["Dynamic Arrays", "Circular Queues"], "in_syllabus": true },
+      { "id": "csl202_3", "title": "Binary Search Trees, AVL Trees, and Red-Black Trees", "subtopics": ["Rotations", "Tree Traversals"], "in_syllabus": true },
+      { "id": "csl202_4", "title": "Priority Queues and Heaps", "subtopics": ["Binary Heap", "Heap Sort"], "in_syllabus": true },
+      { "id": "csl202_5", "title": "Graph Traversal (BFS/DFS), Dijkstra, and MST", "subtopics": ["Shortest Path", "Kruskal", "Prim"], "in_syllabus": true },
+      { "id": "csl202_6", "title": "Sorting and Searching Algorithms", "subtopics": ["QuickSort", "MergeSort", "Binary Search"], "in_syllabus": true }
+    ]
+  },
+  {
+    "code": "CSP203",
+    "name": "Software Tools Lab",
+    "credits": 2.0,
+    "ltp": "0-0-4",
+    "prerequisites": [],
+    "aliases": [],
+    "instructors": ["CS Faculty"],
+    "is_offered_this_sem": true,
+    "source": "CourseOfStudy",
+    "syllabus_raw": "Unix shell scripting, git version control, build tools, debugging tools, profiling.",
+    "topics": [
+      { "id": "csp203_1", "title": "Unix Shell Scripting, awk, and sed", "subtopics": ["Pipes", "Regex"], "in_syllabus": true },
+      { "id": "csp203_2", "title": "Git Version Control & Branching Workflows", "subtopics": ["Merge", "Rebase", "Git Hooks"], "in_syllabus": true },
+      { "id": "csp203_3", "title": "Build Automation with Make and CMake", "subtopics": ["Makefiles", "Dependencies"], "in_syllabus": true },
+      { "id": "csp203_4", "title": "Profiling, GDB Debugging, and Valgrind", "subtopics": ["Breakpoints", "Memory Leaks"], "in_syllabus": true }
+    ]
+  },
+  {
+    "code": "LAL100",
+    "name": "Introduction to Communication Skills",
+    "credits": 2.0,
+    "ltp": "2-0-0",
+    "prerequisites": [],
+    "aliases": [],
+    "instructors": ["Dr. Sruthi Vinayan"],
+    "is_offered_this_sem": true,
+    "source": "CourseOfStudy",
+    "syllabus_raw": "Technical report writing, academic presentations, professional communication.",
+    "topics": [
+      { "id": "lal100_1", "title": "Technical Report and Research Writing", "subtopics": ["Abstract", "Structure", "Citations"], "in_syllabus": true },
+      { "id": "lal100_2", "title": "Academic Oral Presentations & Pitching", "subtopics": ["Slide Design", "Delivery"], "in_syllabus": true },
+      { "id": "lal100_3", "title": "Professional Email and Communication Etiquette", "subtopics": ["Formal Correspondence"], "in_syllabus": true }
+    ]
+  },
+  {
+    "code": "CYL609",
+    "name": "Crystal Engineering & Supramolecular Materials",
+    "credits": 4.0,
+    "ltp": "3-1-0",
+    "prerequisites": [],
+    "aliases": [],
+    "instructors": ["Dr. Prabal Banerjee"],
+    "is_offered_this_sem": true,
+    "source": "MasterTimetable",
+    "syllabus_raw": "Crystal engineering, non-covalent interactions, metal-organic frameworks, supramolecular chemistry, porous crystalline materials.",
+    "topics": [
+      { "id": "cyl609_1", "title": "Crystal Engineering & Non-Covalent Interactions", "subtopics": ["Hydrogen Bonding", "Halogen Bonding"], "in_syllabus": true },
+      { "id": "cyl609_2", "title": "Metal-Organic Frameworks (MOFs) & Coordination Polymers", "subtopics": ["Pore Topologies", "Gas Adsorption"], "in_syllabus": true },
+      { "id": "cyl609_3", "title": "Supramolecular Chemistry & Molecular Recognition", "subtopics": ["Host-Guest Chemistry", "Macrocycles"], "in_syllabus": true },
+      { "id": "cyl609_4", "title": "Design & Synthesis of Porous Crystalline Materials", "subtopics": ["Solvothermal Synthesis", "Post-synthetic Modification"], "in_syllabus": true },
+      { "id": "cyl609_5", "title": "Stimuli-Responsive Functional Materials & Solid-State Transformations", "subtopics": ["Photochromism", "Mechanochromism"], "in_syllabus": true }
+    ]
+  },
+  {
+    "code": "CSL605",
+    "name": "Parallel and Distributed Computing",
+    "credits": 4.0,
+    "ltp": "3-0-2",
+    "prerequisites": [],
+    "aliases": [],
+    "instructors": ["Dr. Subhasis Bhattacharjee"],
+    "is_offered_this_sem": true,
+    "source": "MasterTimetable",
+    "syllabus_raw": "Parallel architectures, OpenMP, MPI, distributed systems, consensus algorithms, performance analysis.",
+    "topics": [
+      { "id": "csl605_1", "title": "Parallel Computer Architectures & Memory Models", "subtopics": ["Shared Memory", "Distributed Memory"], "in_syllabus": true },
+      { "id": "csl605_2", "title": "OpenMP, MPI & Thread-Level Parallelism", "subtopics": ["Pragmas", "Message Passing"], "in_syllabus": true },
+      { "id": "csl605_3", "title": "Distributed Consensus & Consistency Models", "subtopics": ["Paxos", "Raft", "Vector Clocks"], "in_syllabus": true },
+      { "id": "csl605_4", "title": "Parallel Algorithm Design & Performance Scaling", "subtopics": ["Amdahl's Law", "Gustafson's Law"], "in_syllabus": true }
+    ]
+  }
+]

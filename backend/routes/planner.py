@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Any
 from datetime import date
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
@@ -8,6 +8,7 @@ try:
     from parsers.timetable_parser import (
         generate_personal_schedule,
         get_active_timetable,
+        resolve_course_credits,
         MasterTimetable
     )
     from parsers.curriculum_parser import get_course_by_code
@@ -16,6 +17,7 @@ except (ImportError, ValueError):
     from ..parsers.timetable_parser import (
         generate_personal_schedule,
         get_active_timetable,
+        resolve_course_credits,
         MasterTimetable
     )
     from ..parsers.curriculum_parser import get_course_by_code
@@ -81,6 +83,7 @@ def create_study_plan(req: PlanGenerationRequest):
 class FrontendRoadmapRequest(BaseModel):
     courses: Optional[List[Any]] = None
     enrolled_courses: Optional[List[str]] = None
+    topics: Optional[List[Any]] = None
     constraints: Optional[str] = None
     daily_hours: Optional[float] = 4.0
     start_date: Optional[str] = None
@@ -91,6 +94,9 @@ def generate_frontend_roadmap(req: FrontendRoadmapRequest):
     Synthesizes the study roadmap in the exact JSON format expected by frontend app.js:
     { "reply": "...", "study_plan": [ { "date": "...", "total_hours": ..., "blocks": [...] } ] }
     """
+    from routes.courses import generate_topics_for_course
+    from parsers.curriculum_parser import TopicItem
+
     # 1. Extract course codes
     codes = set()
     if req.enrolled_courses:
@@ -127,29 +133,88 @@ def generate_frontend_roadmap(req: FrontendRoadmapRequest):
                 "slot_no": item.slot_no
             })
 
-    # Default fallback exams if timetable slots were empty
-    if not exams_data:
-        exams_data = [
-            {"course_code": "MAL403", "date": "2026-09-18", "start": "10:30", "end": "12:30", "slot_no": 11},
-            {"course_code": "CSL201", "date": "2026-09-21", "start": "10:30", "end": "12:30", "slot_no": 21},
-            {"course_code": "CSL202", "date": "2026-09-24", "start": "10:30", "end": "12:30", "slot_no": 51},
-            {"course_code": "LAL100", "date": "2026-09-25", "start": "09:30", "end": "11:30", "slot_no": 61}
-        ]
+    # Ensure EVERY confirmed course in codes is present in exams_data
+    scheduled_codes = {e["course_code"].upper() for e in exams_data}
+    if req.courses:
+        for c in req.courses:
+            if isinstance(c, dict):
+                c_code = (c.get("code") or "").strip().upper()
+                if c_code and c_code in codes and c_code not in scheduled_codes:
+                    exams_data.append({
+                        "course_code": c_code,
+                        "date": c.get("exam_date") or "2026-09-18",
+                        "start": c.get("start") or "10:30",
+                        "end": c.get("end") or "12:30",
+                        "slot_no": c.get("slot_no") or 11
+                    })
+                    scheduled_codes.add(c_code)
+
+    for code in codes:
+        if code not in scheduled_codes:
+            exams_data.append({
+                "course_code": code,
+                "date": "2026-09-18",
+                "start": "10:30",
+                "end": "12:30",
+                "slot_no": 11
+            })
+            scheduled_codes.add(code)
+
+    # Map topics passed from frontend
+    topics_by_code: dict[str, list[dict]] = {}
+    if req.topics:
+        for t in req.topics:
+            if isinstance(t, dict):
+                t_code = (t.get("code") or t.get("course") or "").strip().upper()
+                t_title = t.get("topic") or t.get("title")
+                if t_code and t_title:
+                    topics_by_code.setdefault(t_code, []).append({"title": t_title, "in_syllabus": True})
 
     courses_info = []
     for code in codes:
         c_detail = get_course_by_code(code)
-        if c_detail:
-            courses_info.append(c_detail.model_dump())
-        else:
-            courses_info.append({"code": code, "name": code, "credits": 4.0, "topics": []})
+        c_name = c_detail.name if c_detail else code
+        if req.courses:
+            for rc in req.courses:
+                if isinstance(rc, dict) and (rc.get("code") or "").strip().upper() == code:
+                    if rc.get("name"):
+                        c_name = rc.get("name")
+                    break
 
-    # Parse start date
-    from datetime import datetime
+        topics = topics_by_code.get(code, [])
+        if not topics and c_detail and c_detail.topics:
+            topics = [t.model_dump() for t in c_detail.topics]
+
+        if not topics:
+            try:
+                gen_topics = generate_topics_for_course(code, c_name)
+            except Exception:
+                gen_topics = [f"{code} Theoretical Foundations", f"{code} Problem Solving Modules"]
+            topics = [{"title": t, "in_syllabus": True} for t in gen_topics]
+            if c_detail:
+                c_detail.topics = [TopicItem(id=f"{code}_{i+1}", title=t) for i, t in enumerate(gen_topics)]
+
+        c_name = c_detail.name if c_detail else code
+        c_credits = resolve_course_credits(code, active)
+        courses_info.append({
+            "code": code,
+            "name": c_name,
+            "credits": c_credits,
+            "topics": topics,
+            "syllabus_raw": c_detail.syllabus_raw if c_detail else ""
+        })
+
+    # Parse start date and set realistic pre-exam study window
+    from datetime import datetime, timedelta
     s_date = None
     if req.start_date:
         try:
-            s_date = datetime.strptime(req.start_date, "%Y-%m-%d").date()
+            parsed_d = datetime.strptime(req.start_date, "%Y-%m-%d").date()
+            min_e_date = min((datetime.strptime(e["date"], "%Y-%m-%d").date() for e in exams_data), default=parsed_d)
+            if parsed_d >= min_e_date:
+                s_date = min_e_date - timedelta(days=7)
+            else:
+                s_date = parsed_d
         except Exception:
             pass
 
@@ -160,16 +225,23 @@ def generate_frontend_roadmap(req: FrontendRoadmapRequest):
         daily_hours_capacity=req.daily_hours or 4.0
     )
 
-    # 3. Format into frontend blocks schema
+    # 3. Format into frontend blocks schema with realistic dynamic time ranges
     formatted_plan = []
     for day in plan_response.daily_schedule:
         blocks = []
-        time_slots = [("09:00 - 11:00", 2), ("14:00 - 16:00", 2), ("17:00 - 19:00", 2)]
-        slot_idx = 0
+        cur_hour = 9
 
         for session in day.sessions:
-            t_range, _ = time_slots[slot_idx % len(time_slots)]
-            slot_idx += 1
+            duration = max(1.0, session.allocated_hours)
+            start_str = f"{cur_hour:02d}:00"
+            end_h = cur_hour + int(duration)
+            end_m = "30" if (duration - int(duration)) >= 0.4 else "00"
+            if end_m == "30":
+                end_str = f"{end_h:02d}:30"
+            else:
+                end_str = f"{end_h:02d}:00"
+            t_range = f"{start_str} - {end_str}"
+            cur_hour = end_h + (2 if cur_hour <= 12 else 1) # meal or focus break
             
             b_type = "revision" if session.study_type == "Revision" else "study"
             if day.is_buffer_day:
@@ -180,7 +252,7 @@ def generate_frontend_roadmap(req: FrontendRoadmapRequest):
                 "course": session.course_code,
                 "type": b_type,
                 "topics": [session.topic_title],
-                "hours": int(session.allocated_hours) if session.allocated_hours >= 1 else 1,
+                "hours": round(session.allocated_hours, 1) if session.allocated_hours != int(session.allocated_hours) else int(session.allocated_hours),
                 "reference": f"NPTEL & Class Notes for {session.course_code}"
             })
 
@@ -197,20 +269,32 @@ def generate_frontend_roadmap(req: FrontendRoadmapRequest):
 
         formatted_plan.append({
             "date": day.date,
-            "total_hours": int(day.total_hours) if day.total_hours >= 1 else 4,
+            "total_hours": round(day.total_hours, 1) if day.total_hours != int(day.total_hours) else int(day.total_hours),
             "blocks": blocks
         })
 
     reply_text = (
         "Here is your customized, day-by-day study roadmap. "
-        "I've balanced topics by academic credits, inserted pre-exam intensive revision buffers, "
-        "and accounted for your personal study hours."
+        "I've weighted study hours based on your course credits (extracted from the master timetable), "
+        "topic breadth, and syllabus volume."
     )
     if req.constraints:
         reply_text += f" Factorized your constraints: '{req.constraints}'."
 
-    return {
+    res_dict = {
         "reply": reply_text,
-        "study_plan": formatted_plan
+        "study_plan": formatted_plan,
+        "workload_weights": [w.model_dump() for w in plan_response.workload_weights],
+        "credit_distribution": plan_response.credit_distribution,
+        "gemma_recommendations": plan_response.gemma_study_recommendations
     }
+    try:
+        import os, json
+        plan_cache_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "..", "data", "active_plan.json")
+        with open(plan_cache_path, "w", encoding="utf-8") as f:
+            json.dump(res_dict, f, indent=2)
+    except Exception:
+        pass
+
+    return res_dict
 

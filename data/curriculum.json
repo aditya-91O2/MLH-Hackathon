@@ -1,0 +1,15 @@
+{
+  "CSE": {
+    "branch_name": "Computer Science and Engineering",
+    "semesters": {
+      "3": {
+        "semester": 3,
+        "courses": ["MAL403", "CSL201", "CSL202", "CSP203", "LAL100"]
+      },
+      "4": {
+        "semester": 4,
+        "courses": ["CSL301", "CSL302", "CSL303", "MAL505"]
+      }
+    }
+  }
+}

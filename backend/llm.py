@@ -1,5 +1,6 @@
 import os
 import json
+import base64
 import logging
 import requests
 from typing import Type, TypeVar, Optional, Dict, Any
@@ -23,7 +24,7 @@ class LLMClient:
         """Call Gemma 4 endpoint with resilient REST and SDK fallback."""
         if self.api_key:
             # 1. Try Google Generative Language REST API for Gemma 4
-            candidates = [self.model_name, "gemma-4-26b-a4b-it", "gemini-2.0-flash", "gemini-1.5-flash"]
+            candidates = ["gemini-3.5-flash-lite", "gemini-3.8-flash", "gemini-flash-latest", self.model_name]
             for model_id in candidates:
                 try:
                     url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_id}:generateContent?key={self.api_key}"
@@ -90,5 +91,60 @@ class LLMClient:
                 last_error = e
                 continue
         raise RuntimeError(f"Failed to generate valid structured response after {max_retries} attempts: {last_error}")
+
+    def extract_timetable_from_image(self, image_bytes: bytes, mime_type: str = "image/png") -> Optional[list]:
+        """Extracts courses and exam dates from timetable images using multimodal vision."""
+        if not self.api_key:
+            return None
+        
+        b64_data = base64.b64encode(image_bytes).decode("utf-8")
+        candidates = ["gemini-3.5-flash-lite", "gemini-3.8-flash", "gemini-flash-latest"]
+        prompt = (
+            "You are an academic exam timetable extractor. Analyze this timetable image.\n"
+            "Extract every course/subject and its exam date.\n"
+            "Respond ONLY with a valid JSON array of objects in this schema:\n"
+            '[{"name": "Course Name or Code", "exam_date": "YYYY-MM-DD"}]\n'
+            "Do not include markdown codeblocks or commentary."
+        )
+
+        for model_id in candidates:
+            try:
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_id}:generateContent?key={self.api_key}"
+                payload = {
+                    "contents": [{
+                        "parts": [
+                            {"inlineData": {"mimeType": mime_type, "data": b64_data}},
+                            {"text": prompt}
+                        ]
+                    }],
+                    "generationConfig": {
+                        "temperature": 0.1,
+                        "maxOutputTokens": 2048
+                    }
+                }
+                res = requests.post(url, json=payload, headers={"Content-Type": "application/json"}, timeout=15)
+                if res.status_code == 200:
+                    data = res.json()
+                    if "candidates" in data and len(data["candidates"]) > 0:
+                        part_text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
+                        if part_text.startswith("```json"):
+                            part_text = part_text[7:]
+                        if part_text.startswith("```"):
+                            part_text = part_text[3:]
+                        if part_text.endswith("```"):
+                            part_text = part_text[:-3]
+                        part_text = part_text.strip()
+                        start = part_text.find("[")
+                        end = part_text.rfind("]")
+                        if start != -1 and end != -1:
+                            part_text = part_text[start:end+1]
+                        parsed = json.loads(part_text)
+                        if isinstance(parsed, list) and len(parsed) > 0:
+                            return parsed
+            except Exception as e:
+                logger.warning(f"Vision call with {model_id} failed: {e}")
+                continue
+
+        return None
 
 llm = LLMClient()

@@ -1,0 +1,2508 @@
+{
+  "exam_type": "MidSem",
+  "session": "2026-27",
+  "slots": [
+    {
+      "slot_no": 11,
+      "date": "2026-09-18",
+      "start": "10:30",
+      "end": "12:30",
+      "total_students": 524,
+      "courses": [
+        {
+          "codes": [
+            "PHL403"
+          ],
+          "instructors": [
+            "Dr. Sudhanwa Patra"
+          ],
+          "students": 14,
+          "halls": [
+            {
+              "hall": "L-208",
+              "assigned": 14,
+              "invigilator": "Dr. Sudhanwa Patra"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "PHL603"
+          ],
+          "instructors": [
+            "Dr. Sabyasachi Ghosh"
+          ],
+          "students": 13,
+          "halls": [
+            {
+              "hall": "L-208",
+              "assigned": 13,
+              "invigilator": "Dr. Sudhanwa Patra"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MTL501"
+          ],
+          "instructors": [
+            "Dr Saikat Sahoo, Dr. Ashish Kumar Sahu"
+          ],
+          "students": 12,
+          "halls": [
+            {
+              "hall": "L-101",
+              "assigned": 12,
+              "invigilator": "Dr. Ashish Kumar Sahu"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MAL511"
+          ],
+          "instructors": [
+            "Dr. Raj Kumar Mistri"
+          ],
+          "students": 2,
+          "halls": [
+            {
+              "hall": "L-102",
+              "assigned": 2,
+              "invigilator": "Dr. Raj Kumar Mistri"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "LAL735"
+          ],
+          "instructors": [
+            "Dr. Eslavath Rajkumar"
+          ],
+          "students": 2,
+          "halls": [
+            {
+              "hall": "L-204",
+              "assigned": 2,
+              "invigilator": "Dr Eslavath Rajkumar"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MAL600"
+          ],
+          "instructors": [
+            "Dr. Arnab Patra"
+          ],
+          "students": 4,
+          "halls": [
+            {
+              "hall": "L-203",
+              "assigned": 4,
+              "invigilator": "Dr. Arnab Patra"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MAL403",
+            "IC105"
+          ],
+          "instructors": [
+            "Dr. Lakshmi Kanta Patra"
+          ],
+          "students": 68,
+          "halls": [
+            {
+              "hall": "L-202",
+              "assigned": 68,
+              "invigilator": "Dr. Kuldeep Kumar Kataria"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CSL301"
+          ],
+          "instructors": [
+            "Dr. SK Subidh Ali"
+          ],
+          "students": 68,
+          "halls": [
+            {
+              "hall": "L-101",
+              "assigned": 68,
+              "invigilator": "Dr. SK Subidh Ali"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MEL333",
+            "ME334"
+          ],
+          "instructors": [
+            "Dr. Anshul Faye"
+          ],
+          "students": 52,
+          "halls": [
+            {
+              "hall": "ED-2 210/211",
+              "assigned": 52,
+              "invigilator": "Anshul"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MEL652",
+            "ME657"
+          ],
+          "instructors": [
+            "Dr. Kaushik Bandyopadhyay"
+          ],
+          "students": 16,
+          "halls": [
+            {
+              "hall": "L-203",
+              "assigned": 16,
+              "invigilator": "Kaushik"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CYL101"
+          ],
+          "instructors": [
+            "Dr. Raghavender Medishetty"
+          ],
+          "students": 63,
+          "halls": [
+            {
+              "hall": "L-206",
+              "assigned": 63,
+              "invigilator": "Dr. Mehboob Alam"
+            }
+          ],
+          "credits": 3.0,
+          "ltp": null
+        }
+      ]
+    },
+    {
+      "slot_no": 13,
+      "date": "2026-09-18",
+      "start": "15:00",
+      "end": "17:00",
+      "total_students": 917,
+      "courses": [
+        {
+          "codes": [
+            "MAL603"
+          ],
+          "instructors": [
+            "Dr. Kuldeep Kumar kataria"
+          ],
+          "students": 5,
+          "halls": [
+            {
+              "hall": "L-104",
+              "assigned": 5,
+              "invigilator": "Dr. Kuldeep Kumar Kataria"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "PHL612"
+          ],
+          "instructors": [
+            "Dr. Avijit Saha"
+          ],
+          "students": 12,
+          "halls": [
+            {
+              "hall": "L-103",
+              "assigned": 12,
+              "invigilator": "Dr. Bhaskar Ghawri"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MML502"
+          ],
+          "instructors": [
+            "Dr. Ashutosh Kumar and Dr. Shobhit Pratap Singh"
+          ],
+          "students": 10,
+          "halls": [
+            {
+              "hall": "L-104",
+              "assigned": 10,
+              "invigilator": "Dr. Ashutosh Kumar"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "BML511"
+          ],
+          "instructors": [
+            "DPGC_BSBM"
+          ],
+          "students": 22,
+          "halls": [
+            {
+              "hall": "L-208",
+              "assigned": 22,
+              "invigilator": "Dr. Neetika Ahlawat"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CSL502"
+          ],
+          "instructors": [
+            "Dr. Barun Gorain, Dr. I Vinod Kumar Reddy"
+          ],
+          "students": 21,
+          "halls": [
+            {
+              "hall": "L-204",
+              "assigned": 21,
+              "invigilator": "Dr. Vinod Reddy"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MML301"
+          ],
+          "instructors": [
+            "Dr. Milan Kumar Jena"
+          ],
+          "students": 11,
+          "halls": [
+            {
+              "hall": "L-103",
+              "assigned": 11,
+              "invigilator": "Dr. Milan Kumar Jena"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CYL010"
+          ],
+          "instructors": [
+            "Dr. Hemanta Kumar Kisan"
+          ],
+          "students": 36,
+          "halls": [
+            {
+              "hall": "L-105",
+              "assigned": 36,
+              "invigilator": "Dr. Hemanta Kumar Kisan"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CYL608"
+          ],
+          "instructors": [
+            "Dr. Torsha Moitra"
+          ],
+          "students": 19,
+          "halls": [
+            {
+              "hall": "L-105",
+              "assigned": 19,
+              "invigilator": "Dr. Torsha Moitra"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "EEL203"
+          ],
+          "instructors": [
+            "Dr. Snehanjan Acharyya"
+          ],
+          "students": 57,
+          "halls": [
+            {
+              "hall": "ED-1 203/204",
+              "assigned": 57,
+              "invigilator": "Dr.Snehanjan Acaraya"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MTL201",
+            "MT253"
+          ],
+          "instructors": [
+            "Dr. Ashish Kumar Sahu"
+          ],
+          "students": 27,
+          "halls": [
+            {
+              "hall": "L-102",
+              "assigned": 27,
+              "invigilator": "Dr. Ashish Kumar Sahu"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CSL201",
+            "MAL503"
+          ],
+          "instructors": [
+            "Dr. Rishi Ranjan Singh"
+          ],
+          "students": 128,
+          "halls": [
+            {
+              "hall": "L-209",
+              "assigned": 128,
+              "invigilator": "Dr. Rishi Ranjan Singh"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CSL518",
+            "CS524"
+          ],
+          "instructors": [
+            "Dr. Barun Gorain"
+          ],
+          "students": 27,
+          "halls": [
+            {
+              "hall": "ED-1 201/202",
+              "assigned": 27,
+              "invigilator": "Dr. Barun Gorain"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CYL501"
+          ],
+          "instructors": [
+            "Dr. Hemanta Kumar Kisan"
+          ],
+          "students": 17,
+          "halls": [
+            {
+              "hall": "L-204",
+              "assigned": 17,
+              "invigilator": "Dr. Hemanta Kumar Kisan"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "DSL502"
+          ],
+          "instructors": [
+            "Prof. Anil K Sao"
+          ],
+          "students": 31,
+          "halls": [
+            {
+              "hall": "L-207",
+              "assigned": 31,
+              "invigilator": "Prof. Anil K Sao"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "ECL204"
+          ],
+          "instructors": [
+            "Dr. Bitan Banerjee"
+          ],
+          "students": 48,
+          "halls": [
+            {
+              "hall": "ED-1 203/204",
+              "assigned": 48,
+              "invigilator": "Dr. Bitan Banerjee"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "ECL503"
+          ],
+          "instructors": [
+            "Dr. Vivek Raghuwanshi"
+          ],
+          "students": 64,
+          "halls": [
+            {
+              "hall": "L-101",
+              "assigned": 64,
+              "invigilator": "Dr. Vivek Raghuwanshi"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "LAL722"
+          ],
+          "instructors": [
+            "Dr. Rekha Ravindran"
+          ],
+          "students": 1,
+          "halls": [
+            {
+              "hall": "L-101",
+              "assigned": 1,
+              "invigilator": "Dr Anindita Ghosh"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        }
+      ]
+    },
+    {
+      "slot_no": 21,
+      "date": "2026-09-21",
+      "start": "10:30",
+      "end": "12:30",
+      "total_students": 892,
+      "courses": [
+        {
+          "codes": [
+            "MAL010"
+          ],
+          "instructors": [
+            "Dr. Anurag Singh"
+          ],
+          "students": 36,
+          "halls": [
+            {
+              "hall": "L-102",
+              "assigned": 36,
+              "invigilator": "Dr. Anurag Singh"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MEL211"
+          ],
+          "instructors": [
+            "Dr. Sampad Laha"
+          ],
+          "students": 53,
+          "halls": [
+            {
+              "hall": "ED-2 210/211",
+              "assigned": 53,
+              "invigilator": "Dr. Sampad Laha"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MEL631"
+          ],
+          "instructors": [
+            "Dr. Anshul Faye"
+          ],
+          "students": 21,
+          "halls": [
+            {
+              "hall": "ED-2 201/202",
+              "assigned": 21,
+              "invigilator": "Dr. Anshul Faye"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MML201"
+          ],
+          "instructors": [
+            "Dr. Ashutosh Kumar"
+          ],
+          "students": 26,
+          "halls": [
+            {
+              "hall": "L-208",
+              "assigned": 26,
+              "invigilator": "Dr. Ashutosh Kumar"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "PHL501"
+          ],
+          "instructors": [
+            "Dr. Dhruv Pratap Singh"
+          ],
+          "students": 15,
+          "halls": [
+            {
+              "hall": "L-104",
+              "assigned": 15,
+              "invigilator": "Dr. Dhruv Pratap Singh"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MTL301"
+          ],
+          "instructors": [
+            "Dr. Saikat Sahoo"
+          ],
+          "students": 12,
+          "halls": [
+            {
+              "hall": "ED-2 212/213",
+              "assigned": 12,
+              "invigilator": "Dr. Saikat Sahoo"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "BML513"
+          ],
+          "instructors": [
+            "Dr. Ashish Kumar Tripathi"
+          ],
+          "students": 7,
+          "halls": [
+            {
+              "hall": "L-104",
+              "assigned": 7,
+              "invigilator": "Dr. Ashish Kumar Tripathi"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MML302"
+          ],
+          "instructors": [
+            "Dr. Anirban Dasgupta"
+          ],
+          "students": 11,
+          "halls": [
+            {
+              "hall": "L-203",
+              "assigned": 11,
+              "invigilator": "Dr. Shobhit Pratap Singh"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MML562"
+          ],
+          "instructors": [
+            "Dr. Arvind Singh"
+          ],
+          "students": 17,
+          "halls": [
+            {
+              "hall": "L-203",
+              "assigned": 17,
+              "invigilator": "Dr. Arvind Singh"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MTL203"
+          ],
+          "instructors": [
+            "Dr Saikat Sahoo, Dr. Kedarisetty Siddhardha"
+          ],
+          "students": 24,
+          "halls": [
+            {
+              "hall": "ED-2 206/207",
+              "assigned": 24,
+              "invigilator": "Dr. Kedarisetty Siddhardha"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "ECL504"
+          ],
+          "instructors": [
+            "Dr. Nitanshu Chauhan"
+          ],
+          "students": 1,
+          "halls": [
+            {
+              "hall": "L-206",
+              "assigned": 1,
+              "invigilator": "Dr. Nitanshu Chauhan"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "ECL573"
+          ],
+          "instructors": [
+            "Dr. Arzad Alam Kherani"
+          ],
+          "students": 9,
+          "halls": [
+            {
+              "hall": "ED-1 203/204",
+              "assigned": 9,
+              "invigilator": "Dr. Arzad Alam Kherani"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "LAL731"
+          ],
+          "instructors": [
+            "Dr. Anindita Ghosh"
+          ],
+          "students": 2,
+          "halls": [
+            {
+              "hall": "L-101",
+              "assigned": 2,
+              "invigilator": "Dr Anindita Ghosh"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "BML514"
+          ],
+          "instructors": [
+            "Dr. Neetika Ahlawat"
+          ],
+          "students": 8,
+          "halls": [
+            {
+              "hall": "L-204",
+              "assigned": 8,
+              "invigilator": "Dr. Neetika Ahlawat"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "EEL201"
+          ],
+          "instructors": [
+            "Dr. Nitin Khanna"
+          ],
+          "students": 60,
+          "halls": [
+            {
+              "hall": "L-205",
+              "assigned": 60,
+              "invigilator": "Dr. Nitin Khanna"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MML559"
+          ],
+          "instructors": [
+            "Dr. Yagnesh Shadangi"
+          ],
+          "students": 26,
+          "halls": [
+            {
+              "hall": "L-201",
+              "assigned": 26,
+              "invigilator": "Dr. Yagnesh Shadangi"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        }
+      ]
+    },
+    {
+      "slot_no": 23,
+      "date": "2026-09-21",
+      "start": "15:00",
+      "end": "17:00",
+      "total_students": 274,
+      "courses": [
+        {
+          "codes": [
+            "EEL301"
+          ],
+          "instructors": [
+            "Dr. Lalit Kumar Sahu"
+          ],
+          "students": 34,
+          "halls": [
+            {
+              "hall": "L-101",
+              "assigned": 34,
+              "invigilator": "Dr. Lalit Kumar Sahu"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "BML512"
+          ],
+          "instructors": [
+            "Dr. Arun Kumar Upadhyay"
+          ],
+          "students": 16,
+          "halls": [
+            {
+              "hall": "L-105",
+              "assigned": 16,
+              "invigilator": "Dr. Arun Kumar Upadhyay"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "EVL503"
+          ],
+          "instructors": [
+            "Dr. Shashank Kurm, Dr. Shailendra"
+          ],
+          "students": 22,
+          "halls": [
+            {
+              "hall": "L-101",
+              "assigned": 22,
+              "invigilator": "Dr. Shailendra Kumar"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "ECL302"
+          ],
+          "instructors": [
+            "Dr. Aditya Singh"
+          ],
+          "students": 43,
+          "halls": [
+            {
+              "hall": "L-105",
+              "assigned": 43,
+              "invigilator": "Dr. Aditya Singh"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        }
+      ]
+    },
+    {
+      "slot_no": 31,
+      "date": "2026-09-22",
+      "start": "09:30",
+      "end": "11:30",
+      "total_students": 218,
+      "courses": [
+        {
+          "codes": [
+            "EEL204"
+          ],
+          "instructors": [
+            "DUGC_EE"
+          ],
+          "students": 58,
+          "halls": [
+            {
+              "hall": "L-102",
+              "assigned": 58,
+              "invigilator": "Dr. Shashank Kurm"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MAL401"
+          ],
+          "instructors": [
+            "Dr. Avijit Pal"
+          ],
+          "students": 21,
+          "halls": [
+            {
+              "hall": "L-104",
+              "assigned": 21,
+              "invigilator": "Dr. Avijit Pal"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MAL601"
+          ],
+          "instructors": [
+            "Dr. Avijit Pal"
+          ],
+          "students": 8,
+          "halls": [
+            {
+              "hall": "L-104",
+              "assigned": 8,
+              "invigilator": "Dr. Avijit Pal"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CYL500"
+          ],
+          "instructors": [
+            "Dr. Mehboob Alam"
+          ],
+          "students": 16,
+          "halls": [
+            {
+              "hall": "L-103",
+              "assigned": 16,
+              "invigilator": "Dr. Mehboob Alam"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        }
+      ]
+    },
+    {
+      "slot_no": 32,
+      "date": "2026-09-22",
+      "start": "12:30",
+      "end": "14:30",
+      "total_students": 377,
+      "courses": [
+        {
+          "codes": [
+            "LAL252",
+            "LA252"
+          ],
+          "instructors": [
+            "Dr. Eslavath Rajkumar"
+          ],
+          "students": 68,
+          "halls": [
+            {
+              "hall": "L-206",
+              "assigned": 68,
+              "invigilator": "Dr Anubhav Pradhan"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "DSL504",
+            "DS504"
+          ],
+          "instructors": [
+            "Dr. Soumajit Pramanik"
+          ],
+          "students": 148,
+          "halls": [
+            {
+              "hall": "L-209",
+              "assigned": 148,
+              "invigilator": "Dr. Soumajit Pramanik"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MML560"
+          ],
+          "instructors": [
+            "Dr. Amit Kumar Mishra"
+          ],
+          "students": 29,
+          "halls": [
+            {
+              "hall": "L-105",
+              "assigned": 29,
+              "invigilator": "Dr. Amit Kumar Mishra"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        }
+      ]
+    },
+    {
+      "slot_no": 33,
+      "date": "2026-09-22",
+      "start": "15:30",
+      "end": "17:30",
+      "total_students": 539,
+      "courses": [
+        {
+          "codes": [
+            "PHL101"
+          ],
+          "instructors": [
+            "Dr. Mahavir Sharma, Dr. Praveen Kumar"
+          ],
+          "students": 68,
+          "halls": [
+            {
+              "hall": "L-201",
+              "assigned": 68,
+              "invigilator": "Dr. Avijit Saha"
+            }
+          ],
+          "credits": 3.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CYL601"
+          ],
+          "instructors": [
+            "Dr. Arup Mukherjee"
+          ],
+          "students": 17,
+          "halls": [
+            {
+              "hall": "L-103",
+              "assigned": 17,
+              "invigilator": "Dr. Arup Mukherjee"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MEL414",
+            "ME514"
+          ],
+          "instructors": [
+            "Dr. Pravesh C Shukla"
+          ],
+          "students": 36,
+          "halls": [
+            {
+              "hall": "L-105",
+              "assigned": 36,
+              "invigilator": "Dr. Pravesh C Shukla"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "BML617"
+          ],
+          "instructors": [
+            "DPGC_BSBM"
+          ],
+          "students": 16,
+          "halls": [
+            {
+              "hall": "L-102",
+              "assigned": 16,
+              "invigilator": "Dr. Ashish Kumar Triapthi"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CSL302"
+          ],
+          "instructors": [
+            "Prof. Santosh Biswas"
+          ],
+          "students": 30,
+          "halls": [
+            {
+              "hall": "ED-1 201/202",
+              "assigned": 30,
+              "invigilator": "Dr. Rishi Ranjan Singh"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CYL401"
+          ],
+          "instructors": [
+            "Dr. Raghavender Medishetty"
+          ],
+          "students": 14,
+          "halls": [
+            {
+              "hall": "L-206",
+              "assigned": 14,
+              "invigilator": "Dr. Raghavender Medishetty"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "DSL608"
+          ],
+          "instructors": [
+            "Dr. Rajesh Kumar Mundotiya"
+          ],
+          "students": 12,
+          "halls": [
+            {
+              "hall": "L-104",
+              "assigned": 12,
+              "invigilator": "Dr. Rajesh Kumar Mundotiya"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "ECL202"
+          ],
+          "instructors": [
+            "Dr. Hathiram Nenavath"
+          ],
+          "students": 47,
+          "halls": [
+            {
+              "hall": "L-202",
+              "assigned": 47,
+              "invigilator": "Dr. Hathiram Nenavath"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "EEL303",
+            "EE309"
+          ],
+          "instructors": [
+            "Dr. Shailendra"
+          ],
+          "students": 38,
+          "halls": [
+            {
+              "hall": "ED-2 210/211",
+              "assigned": 38,
+              "invigilator": "Dr. Shailendra Kumar"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "EEL621",
+            "EE509"
+          ],
+          "instructors": [
+            "Dr. Shashank Kurm"
+          ],
+          "students": 51,
+          "halls": [
+            {
+              "hall": "L-102",
+              "assigned": 51,
+              "invigilator": "Dr. Shashank Kurm"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "LAL621"
+          ],
+          "instructors": [
+            "Dr. Rekha Ravindran"
+          ],
+          "students": 1,
+          "halls": [
+            {
+              "hall": "L-101",
+              "assigned": 1,
+              "invigilator": "Dr Rekha Ravindran"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MAL100"
+          ],
+          "instructors": [
+            "Dr. Swati Yadav"
+          ],
+          "students": 52,
+          "halls": [
+            {
+              "hall": "L-205",
+              "assigned": 52,
+              "invigilator": "Dr. Anurag Singh"
+            }
+          ],
+          "credits": 3.0,
+          "ltp": null
+        }
+      ]
+    },
+    {
+      "slot_no": 41,
+      "date": "2026-09-23",
+      "start": "09:30",
+      "end": "11:30",
+      "total_students": 918,
+      "courses": [
+        {
+          "codes": [
+            "MAL404"
+          ],
+          "instructors": [
+            "Dr. Raj Kumar Mistri"
+          ],
+          "students": 19,
+          "halls": [
+            {
+              "hall": "L-101",
+              "assigned": 19,
+              "invigilator": "Dr. Raj Kumar Mistri"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MEL251"
+          ],
+          "instructors": [
+            "Dr. Kaushik Bandyopadhyay"
+          ],
+          "students": 64,
+          "halls": [
+            {
+              "hall": "L-105",
+              "assigned": 64,
+              "invigilator": "Kaushik"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MEL351"
+          ],
+          "instructors": [
+            "Dr. Purnendu Das"
+          ],
+          "students": 29,
+          "halls": [
+            {
+              "hall": "L-207",
+              "assigned": 29,
+              "invigilator": "Purnendu"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MEL502"
+          ],
+          "instructors": [
+            "Dr. Rahul Jain"
+          ],
+          "students": 9,
+          "halls": [
+            {
+              "hall": "L-104",
+              "assigned": 9,
+              "invigilator": "Dr. Rahul Jain"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MEL612"
+          ],
+          "instructors": [
+            "Dr. Pravesh C Shukla"
+          ],
+          "students": 21,
+          "halls": [
+            {
+              "hall": "L-208",
+              "assigned": 21,
+              "invigilator": "Dr. Pravesh C Shukla"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "PHL613"
+          ],
+          "instructors": [
+            "Dr. Bhaskar Ghawri"
+          ],
+          "students": 15,
+          "halls": [
+            {
+              "hall": "L-103",
+              "assigned": 15,
+              "invigilator": "Dr. Avijit Saha"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "ECL572"
+          ],
+          "instructors": [
+            "Dr. Karthikeyan E"
+          ],
+          "students": 11,
+          "halls": [
+            {
+              "hall": "L-204",
+              "assigned": 11,
+              "invigilator": "Dr. Vivek Raghuwanshi"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "LAL010"
+          ],
+          "instructors": [
+            "Dr. Sruthi Vinayan"
+          ],
+          "students": 36,
+          "halls": [
+            {
+              "hall": "L-101",
+              "assigned": 36,
+              "invigilator": "Dr Sruthi Vinayan"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "ECL551"
+          ],
+          "instructors": [
+            "Dr. Nitanshu Chauhan"
+          ],
+          "students": 11,
+          "halls": [
+            {
+              "hall": "L-204",
+              "assigned": 11,
+              "invigilator": "Dr. Nitanshu Chauhan"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MAL512"
+          ],
+          "instructors": [
+            "Dr. Pawan Kumar Mishra"
+          ],
+          "students": 9,
+          "halls": [
+            {
+              "hall": "L-201",
+              "assigned": 9,
+              "invigilator": "Dr. Pawan Kumar Mishra"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "PHL502"
+          ],
+          "instructors": [
+            "Dr. Sesha Pavan Kumar Vempati"
+          ],
+          "students": 14,
+          "halls": [
+            {
+              "hall": "L-103",
+              "assigned": 14,
+              "invigilator": "Dr. Sesha Pavan Kumar Vempati"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CYL600"
+          ],
+          "instructors": [
+            "Dr. Ganapathy D"
+          ],
+          "students": 16,
+          "halls": [
+            {
+              "hall": "L-205",
+              "assigned": 16,
+              "invigilator": "Dr. Ganapathy D"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MTL561",
+            "MT561"
+          ],
+          "instructors": [
+            "Dr. Kedarisetty Siddhardha"
+          ],
+          "students": 7,
+          "halls": [
+            {
+              "hall": "L-209",
+              "assigned": 7,
+              "invigilator": "Dr. Kedarisetty Siddhardha"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "LAL734"
+          ],
+          "instructors": [
+            "Dr. Eslavath Rajkumar"
+          ],
+          "students": 2,
+          "halls": [
+            {
+              "hall": "L-101",
+              "assigned": 2,
+              "invigilator": "Dr Rekha Ravindran"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "EEL202"
+          ],
+          "instructors": [
+            "Dr. Snehanjan Acharyya, Dr. Sandeep Kumar Soni"
+          ],
+          "students": 56,
+          "halls": [
+            {
+              "hall": "ED-1 203/204",
+              "assigned": 56,
+              "invigilator": "Dr. Sandeep Soni"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        }
+      ]
+    },
+    {
+      "slot_no": 42,
+      "date": "2026-09-23",
+      "start": "12:30",
+      "end": "14:30",
+      "total_students": 44,
+      "courses": [
+        {
+          "codes": [
+            "MML504"
+          ],
+          "instructors": [
+            "Dr. Amit Kumar Mishra"
+          ],
+          "students": 44,
+          "halls": [
+            {
+              "hall": "L-101",
+              "assigned": 44,
+              "invigilator": "Dr. Amit Kumar Mishra"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CSL559"
+          ],
+          "instructors": [
+            "Dr. Gagan Raj Gupta"
+          ],
+          "students": 71,
+          "halls": [
+            {
+              "hall": "L-209",
+              "assigned": 71,
+              "invigilator": "Dr. Gagan Raj Gupta"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "EEL302",
+            "MT301"
+          ],
+          "instructors": [
+            "Dr. Avishek Adhikari"
+          ],
+          "students": 47,
+          "halls": [
+            {
+              "hall": "L-105",
+              "assigned": 47,
+              "invigilator": "Dr. Avishk Adhikari"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MEL659",
+            "ME659"
+          ],
+          "instructors": [
+            "Dr. Jose Immanuel R"
+          ],
+          "students": 12,
+          "halls": [
+            {
+              "hall": "L-103",
+              "assigned": 12,
+              "invigilator": "Dr. Jose Immanuel R"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MML558"
+          ],
+          "instructors": [
+            "Dr. Milan Kumar Jena"
+          ],
+          "students": 28,
+          "halls": [
+            {
+              "hall": "L-201",
+              "assigned": 28,
+              "invigilator": "Dr. Milan Kumar Jena"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        }
+      ]
+    },
+    {
+      "slot_no": 43,
+      "date": "2026-09-23",
+      "start": "15:30",
+      "end": "17:30",
+      "total_students": 300,
+      "courses": [
+        {
+          "codes": [
+            "EEL524"
+          ],
+          "instructors": [
+            "Dr. Krishna Murari"
+          ],
+          "students": 37,
+          "halls": [
+            {
+              "hall": "L-101",
+              "assigned": 37,
+              "invigilator": "Dr. Krishna Murari"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MML205"
+          ],
+          "instructors": [
+            "Dr. Shobhit Pratap Singh"
+          ],
+          "students": 20,
+          "halls": [
+            {
+              "hall": "L-201",
+              "assigned": 20,
+              "invigilator": "Dr. Shobhit Pratap Singh"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CSL606"
+          ],
+          "instructors": [
+            "Dr. I Vinod Kumar Reddy"
+          ],
+          "students": 36,
+          "halls": [
+            {
+              "hall": "L-102",
+              "assigned": 36,
+              "invigilator": "Dr. I Vinod Kumar Reddy"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "DSL201",
+            "DS100"
+          ],
+          "instructors": [
+            "Prof. Anil K Sao"
+          ],
+          "students": 49,
+          "halls": [
+            {
+              "hall": "L-202",
+              "assigned": 49,
+              "invigilator": "Prof. Anil K Sao"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CSL202",
+            "MAL504"
+          ],
+          "instructors": [
+            "Prof. Souradyuti Paul"
+          ],
+          "students": 133,
+          "halls": [
+            {
+              "hall": "L-209",
+              "assigned": 133,
+              "invigilator": "Prof. Souradyuti Paul"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CSL304",
+            "DS251"
+          ],
+          "instructors": [
+            "Dr. Soumajit Pramanik"
+          ],
+          "students": 35,
+          "halls": [
+            {
+              "hall": "L-202",
+              "assigned": 35,
+              "invigilator": "Dr. Dhiman Saha"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "EEL601",
+            "EE512"
+          ],
+          "instructors": [
+            "Dr. Sandeep Kumar Soni"
+          ],
+          "students": 64,
+          "halls": [
+            {
+              "hall": "L-101",
+              "assigned": 64,
+              "invigilator": "Dr. Sandeep Kumar Soni"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MEL624",
+            "ME624"
+          ],
+          "instructors": [
+            "Dr. Vijay Shantaram Duryodhan, Dr. Udayraj"
+          ],
+          "students": 36,
+          "halls": [
+            {
+              "hall": "L-105",
+              "assigned": 36,
+              "invigilator": "Dr. Vijay Shantaram Duryodhan"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        }
+      ]
+    },
+    {
+      "slot_no": 51,
+      "date": "2026-09-24",
+      "start": "10:30",
+      "end": "12:30",
+      "total_students": 561,
+      "courses": [
+        {
+          "codes": [
+            "MML204",
+            "ME151"
+          ],
+          "instructors": [
+            "Dr. Nithin B"
+          ],
+          "students": 64,
+          "halls": [
+            {
+              "hall": "L-102",
+              "assigned": 64,
+              "invigilator": "Dr. Nithin B"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "BML515"
+          ],
+          "instructors": [
+            "Dr. Henu Kumar Verma"
+          ],
+          "students": 19,
+          "halls": [
+            {
+              "hall": "L-103",
+              "assigned": 19,
+              "invigilator": "Dr. Henu Kumar Verma"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CSL622",
+            "CS621"
+          ],
+          "instructors": [
+            "Dr. Dhiman Saha"
+          ],
+          "students": 26,
+          "halls": [
+            {
+              "hall": "L-202",
+              "assigned": 26,
+              "invigilator": "Dr. Dhiman Saha"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "PHL601"
+          ],
+          "instructors": [
+            "Dr. Ravi Kashikar"
+          ],
+          "students": 16,
+          "halls": [
+            {
+              "hall": "L-104",
+              "assigned": 16,
+              "invigilator": "Dr. Ravi Kashikar"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CSL503"
+          ],
+          "instructors": [
+            "Dr. SK Subidh Ali"
+          ],
+          "students": 20,
+          "halls": [
+            {
+              "hall": "L-207",
+              "assigned": 20,
+              "invigilator": "Dr. SK Subidh Ali"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MEL636"
+          ],
+          "instructors": [
+            "Dr. Ganesh Kolappan Geeth"
+          ],
+          "students": 12,
+          "halls": [
+            {
+              "hall": "L-105",
+              "assigned": 12,
+              "invigilator": "Dr. Ganesh Kolappan Geetha"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CSL303",
+            "MAL505"
+          ],
+          "instructors": [
+            "Dr. Amit Kumar Dhar"
+          ],
+          "students": 68,
+          "halls": [
+            {
+              "hall": "L-101",
+              "assigned": 68,
+              "invigilator": "Dr. Amit Kumar Dhar"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CYL100"
+          ],
+          "instructors": [
+            "Dr. Sanjib Banerjee (IC), Dr. Torsha Moitra"
+          ],
+          "students": 68,
+          "halls": [
+            {
+              "hall": "L-205",
+              "assigned": 68,
+              "invigilator": "Dr. Ramasamy Mayilmurugan"
+            }
+          ],
+          "credits": 3.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CYL400"
+          ],
+          "instructors": [
+            "Dr. Satyajit Gupta"
+          ],
+          "students": 14,
+          "halls": [
+            {
+              "hall": "L-207",
+              "assigned": 14,
+              "invigilator": "Dr. Satyajit Gupta"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        }
+      ]
+    },
+    {
+      "slot_no": 53,
+      "date": "2026-09-24",
+      "start": "15:00",
+      "end": "17:00",
+      "total_students": 848,
+      "courses": [
+        {
+          "codes": [
+            "MML202"
+          ],
+          "instructors": [
+            "Dr. Arvind Singh"
+          ],
+          "students": 20,
+          "halls": [
+            {
+              "hall": "L-103",
+              "assigned": 20,
+              "invigilator": "Dr. Arvind Singh"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "PHL505"
+          ],
+          "instructors": [
+            "Dr. Praveen Kumar"
+          ],
+          "students": 146,
+          "halls": [
+            {
+              "hall": "L-209",
+              "assigned": 146,
+              "invigilator": "Dr. Praveen Kumar"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "ECL201"
+          ],
+          "instructors": [
+            "Dr. Karthikeyan E"
+          ],
+          "students": 47,
+          "halls": [
+            {
+              "hall": "ED-1 203/204",
+              "assigned": 47,
+              "invigilator": "Dr. Karthikeyan E"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MEL611"
+          ],
+          "instructors": [
+            "Dr. Balkrishna Mehta"
+          ],
+          "students": 8,
+          "halls": [
+            {
+              "hall": "L-105",
+              "assigned": 8,
+              "invigilator": "Dr. Balkrishna Mehta"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CYL509"
+          ],
+          "instructors": [
+            "Dr. Satyajit Gupta (IC), Dr. Torsha Moitra"
+          ],
+          "students": 16,
+          "halls": [
+            {
+              "hall": "L-102",
+              "assigned": 16,
+              "invigilator": "Dr. Satyajit Gupta"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "ECL530",
+            "EC530"
+          ],
+          "instructors": [
+            "Dr. Nitanshu Chauhan"
+          ],
+          "students": 14,
+          "halls": [
+            {
+              "hall": "ED-1 207/208",
+              "assigned": 14,
+              "invigilator": "Dr. Nitanshu Chauhan"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "ECL570"
+          ],
+          "instructors": [
+            "Dr. Hathiram Nenavath"
+          ],
+          "students": 11,
+          "halls": [
+            {
+              "hall": "ED-1 201/202",
+              "assigned": 11,
+              "invigilator": "Dr. Hathiram Nenavath"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MML501"
+          ],
+          "instructors": [
+            "Dr. Yagnesh Shadangi and Dr. Nithin B."
+          ],
+          "students": 17,
+          "halls": [
+            {
+              "hall": "L-104",
+              "assigned": 17,
+              "invigilator": "Dr. Nithin B."
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "LAL721"
+          ],
+          "instructors": [
+            "Dr. Rekha Ravindran"
+          ],
+          "students": 1,
+          "halls": [
+            {
+              "hall": "L-209",
+              "assigned": 1,
+              "invigilator": "Dr Sreelakshmi R."
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "LAL732"
+          ],
+          "instructors": [
+            "Dr. Anindita Ghosh"
+          ],
+          "students": 2,
+          "halls": [
+            {
+              "hall": "L-209",
+              "assigned": 2,
+              "invigilator": "Dr Sreelakshmi R."
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "LAL301"
+          ],
+          "instructors": [
+            "Dr. Rekha Ravindran"
+          ],
+          "students": 26,
+          "halls": [
+            {
+              "hall": "L-201",
+              "assigned": 26,
+              "invigilator": "Dr Rekha Ravindran"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "LAL320"
+          ],
+          "instructors": [
+            "Dr. Anindita Ghosh"
+          ],
+          "students": 59,
+          "halls": [
+            {
+              "hall": "L-202",
+              "assigned": 59,
+              "invigilator": "Dr Anindita Ghosh"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "LAL100"
+          ],
+          "instructors": [
+            "Dr. Sruthi Vinayan, Dr. Ritika Verma, Dr. Anubhav Pradhan"
+          ],
+          "students": 68,
+          "halls": [
+            {
+              "hall": "L-205",
+              "assigned": 68,
+              "invigilator": "Dr Anubhav Pradhan"
+            }
+          ],
+          "credits": 2.0,
+          "ltp": null
+        }
+      ]
+    },
+    {
+      "slot_no": 61,
+      "date": "2026-09-25",
+      "start": "09:30",
+      "end": "11:30",
+      "total_students": 606,
+      "courses": [
+        {
+          "codes": [
+            "DSL501"
+          ],
+          "instructors": [
+            "Dr. Rajesh Kumar Mundotiya"
+          ],
+          "students": 56,
+          "halls": [
+            {
+              "hall": "L-102",
+              "assigned": 56,
+              "invigilator": "Dr. Rajesh Kumar Mundotiya"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "BML615"
+          ],
+          "instructors": [
+            "Dr. Suchetan Pal"
+          ],
+          "students": 30,
+          "halls": [
+            {
+              "hall": "L-103",
+              "assigned": 30,
+              "invigilator": "Dr. Suchetan Pal"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "EEL521",
+            "EE525"
+          ],
+          "instructors": [
+            "Dr. Krishna Murari, Dr. Shashank Kurm"
+          ],
+          "students": 50,
+          "halls": [
+            {
+              "hall": "L-105",
+              "assigned": 50,
+              "invigilator": "Dr. Krishna Murari"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MAL521"
+          ],
+          "instructors": [
+            "Dr. Bharat Talwar"
+          ],
+          "students": 15,
+          "halls": [
+            {
+              "hall": "L-104",
+              "assigned": 15,
+              "invigilator": "Dr. Anurag Singh"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "PHL602"
+          ],
+          "instructors": [
+            "Dr. Mahavir Sharma"
+          ],
+          "students": 7,
+          "halls": [
+            {
+              "hall": "L-104",
+              "assigned": 7,
+              "invigilator": "Dr. Mahavir Sharma"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        }
+      ]
+    },
+    {
+      "slot_no": 62,
+      "date": "2026-09-25",
+      "start": "12:30",
+      "end": "14:30",
+      "total_students": 26,
+      "courses": [
+        {
+          "codes": [
+            "LAL221",
+            "LA302"
+          ],
+          "instructors": [
+            "Dr. Anubhav Pradhan"
+          ],
+          "students": 26,
+          "halls": [
+            {
+              "hall": "L-101",
+              "assigned": 26,
+              "invigilator": "Dr Anubhav Pradhan"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "LAL225",
+            "LA360"
+          ],
+          "instructors": [
+            "Dr. Ritika Verma"
+          ],
+          "students": 15,
+          "halls": [
+            {
+              "hall": "L-206",
+              "assigned": 15,
+              "invigilator": "Dr Eslavath Rajkumar"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "MEL655",
+            "ME652"
+          ],
+          "instructors": [
+            "Prof. Soumya Gangopadhyay"
+          ],
+          "students": 47,
+          "halls": [
+            {
+              "hall": "L-202",
+              "assigned": 47,
+              "invigilator": "Prof. Soumya Gangopadhyay"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "PHL010"
+          ],
+          "instructors": [
+            "Dr. Sabyasachi Ghosh, Dr. Ravi Kashikar"
+          ],
+          "students": 36,
+          "halls": [
+            {
+              "hall": "L-201",
+              "assigned": 36,
+              "invigilator": "Dr. Bhaskar Ghawri"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        }
+      ]
+    },
+    {
+      "slot_no": 63,
+      "date": "2026-09-25",
+      "start": "15:30",
+      "end": "17:30",
+      "total_students": 300,
+      "courses": [
+        {
+          "codes": [
+            "MAL402"
+          ],
+          "instructors": [
+            "Dr. Asrifa Sultana"
+          ],
+          "students": 21,
+          "halls": [
+            {
+              "hall": "L-205",
+              "assigned": 21,
+              "invigilator": "Dr. Asrifa Sultana"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "PHL404"
+          ],
+          "instructors": [
+            "Dr. Anjali Chaudhary"
+          ],
+          "students": 14,
+          "halls": [
+            {
+              "hall": "L-203",
+              "assigned": 14,
+              "invigilator": "Dr. Anjali Chaudhary"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CSL605"
+          ],
+          "instructors": [
+            "Dr. Anand M Baswade , Prof. Souradyuti Paul"
+          ],
+          "students": 22,
+          "halls": [
+            {
+              "hall": "L-206",
+              "assigned": 22,
+              "invigilator": "Dr. Anand M Baswade"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        },
+        {
+          "codes": [
+            "CYL609"
+          ],
+          "instructors": [
+            "Dr. Ramasamy Mayilmurugan"
+          ],
+          "students": 5,
+          "halls": [
+            {
+              "hall": "L-204",
+              "assigned": 5,
+              "invigilator": "Dr. R Mayil Murugan"
+            }
+          ],
+          "credits": 4.0,
+          "ltp": null
+        }
+      ]
+    }
+  ]
+}

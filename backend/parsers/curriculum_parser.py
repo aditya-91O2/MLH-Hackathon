@@ -28,13 +28,96 @@ class CourseDetail(BaseModel):
 _ACTIVE_COURSES_MAP: Optional[Dict[str, CourseDetail]] = None
 
 def load_default_courses() -> List[CourseDetail]:
-    """Loads pristine baseline courses from data/courses.json."""
+    """Loads pristine baseline courses from data/courses.json with safety fallbacks."""
     path = os.path.join(DATA_DIR, "courses.json")
-    if not os.path.exists(path):
-        return []
-    with open(path, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    return [CourseDetail.model_validate(c) for c in data]
+    if not os.path.exists(path) or os.path.getsize(path) == 0:
+        return _get_builtin_default_courses()
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if not data:
+            return _get_builtin_default_courses()
+        return [CourseDetail.model_validate(c) for c in data]
+    except Exception:
+        return _get_builtin_default_courses()
+
+def _get_builtin_default_courses() -> List[CourseDetail]:
+    """Builtin fallback courses if courses.json is empty or missing."""
+    return [
+        CourseDetail(
+            code="MAL403",
+            name="Probability and Statistics",
+            credits=4.0,
+            ltp="3-1-0",
+            aliases=["IC105"],
+            instructors=["Dr. Lakshmi Kanta Patra"],
+            topics=[
+                TopicItem(id="mal403_1", title="Axioms of Probability and Conditional Probability"),
+                TopicItem(id="mal403_2", title="Random Variables and Distribution Functions"),
+                TopicItem(id="mal403_3", title="Expectation, Variance, and Moments"),
+                TopicItem(id="mal403_4", title="Limit Theorems: Law of Large Numbers & CLT"),
+                TopicItem(id="mal403_5", title="Confidence Intervals & Hypothesis Testing")
+            ]
+        ),
+        CourseDetail(
+            code="CSL201",
+            name="Discrete Mathematics",
+            credits=4.0,
+            ltp="3-1-0",
+            aliases=["MAL503"],
+            instructors=["Dr. Rishi Ranjan Singh"],
+            topics=[
+                TopicItem(id="csl201_1", title="Propositional and First-Order Predicate Logic"),
+                TopicItem(id="csl201_2", title="Set Theory, Relations, and Equivalence"),
+                TopicItem(id="csl201_3", title="Combinatorics and Pigeonhole Principle"),
+                TopicItem(id="csl201_4", title="Recurrence Relations & Generating Functions"),
+                TopicItem(id="csl201_5", title="Graph Theory, Trees, and Eulerian/Hamiltonian Circuits")
+            ]
+        ),
+        CourseDetail(
+            code="CSL202",
+            name="Data Structures",
+            credits=4.0,
+            ltp="3-0-2",
+            aliases=["MAL504"],
+            instructors=["Prof. Souradyuti Paul"],
+            topics=[
+                TopicItem(id="csl202_1", title="Asymptotic Analysis & Big-O Notation"),
+                TopicItem(id="csl202_2", title="Arrays, Linked Lists, Stacks, and Queues"),
+                TopicItem(id="csl202_3", title="Binary Search Trees, AVL Trees, and Red-Black Trees"),
+                TopicItem(id="csl202_4", title="Priority Queues and Heaps"),
+                TopicItem(id="csl202_5", title="Graph Traversal (BFS/DFS), Dijkstra, and MST"),
+                TopicItem(id="csl202_6", title="Sorting and Searching Algorithms")
+            ]
+        ),
+        CourseDetail(
+            code="CSP203",
+            name="Software Tools Lab",
+            credits=2.0,
+            ltp="0-0-4",
+            aliases=[],
+            instructors=["CS Faculty"],
+            topics=[
+                TopicItem(id="csp203_1", title="Unix Shell Scripting, awk, and sed"),
+                TopicItem(id="csp203_2", title="Git Version Control & Branching Workflows"),
+                TopicItem(id="csp203_3", title="Build Automation with Make and CMake"),
+                TopicItem(id="csp203_4", title="Profiling, GDB Debugging, and Valgrind")
+            ]
+        ),
+        CourseDetail(
+            code="LAL100",
+            name="Introduction to Communication Skills",
+            credits=2.0,
+            ltp="2-0-0",
+            aliases=[],
+            instructors=["Dr. Sruthi Vinayan"],
+            topics=[
+                TopicItem(id="lal100_1", title="Technical Report and Research Writing"),
+                TopicItem(id="lal100_2", title="Academic Oral Presentations & Pitching"),
+                TopicItem(id="lal100_3", title="Professional Email and Communication Etiquette")
+            ]
+        )
+    ]
 
 def reset_courses_to_default() -> None:
     """Resets dynamic course registry back to baseline defaults."""

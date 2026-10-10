@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(
     title="Campus Exam Preparation Agent API",
-    description="Personalized study planner, timetable parser, and RAG agent powered by Gemma 4",
+    description="Personalized study planner and timetable parser powered by Gemma 4",
     version="1.0.0",
 )
 

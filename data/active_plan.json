@@ -1,0 +1,242 @@
+{
+  "reply": "Here is your customized, day-by-day study roadmap. I've weighted study hours based on your course credits (extracted from the master timetable), topic breadth, and syllabus volume.",
+  "study_plan": [
+    {
+      "date": "2026-09-18",
+      "total_hours": 4,
+      "blocks": [
+        {
+          "time_range": "09:00 - 10:00",
+          "course": "LA302",
+          "type": "study",
+          "topics": [
+            "Intercultural Communication and Pragmatics"
+          ],
+          "hours": 1,
+          "reference": "NPTEL & Class Notes for LA302"
+        },
+        {
+          "time_range": "12:00 - 15:00",
+          "course": "CYL609",
+          "type": "study",
+          "topics": [
+            "Crystal Engineering & Non-Covalent Interactions"
+          ],
+          "hours": 3,
+          "reference": "NPTEL & Class Notes for CYL609"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-19",
+      "total_hours": 4,
+      "blocks": [
+        {
+          "time_range": "09:00 - 12:00",
+          "course": "CYL609",
+          "type": "study",
+          "topics": [
+            "Metal-Organic Frameworks (MOFs) & Coordination Polymers"
+          ],
+          "hours": 3,
+          "reference": "NPTEL & Class Notes for CYL609"
+        },
+        {
+          "time_range": "14:00 - 15:00",
+          "course": "LA302",
+          "type": "study",
+          "topics": [
+            "Intercultural Communication and Pragmatics"
+          ],
+          "hours": 1,
+          "reference": "NPTEL & Class Notes for LA302"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-20",
+      "total_hours": 4,
+      "blocks": [
+        {
+          "time_range": "09:00 - 10:00",
+          "course": "LA302",
+          "type": "study",
+          "topics": [
+            "Intercultural Communication and Pragmatics"
+          ],
+          "hours": 1,
+          "reference": "NPTEL & Class Notes for LA302"
+        },
+        {
+          "time_range": "12:00 - 15:00",
+          "course": "CYL609",
+          "type": "study",
+          "topics": [
+            "Supramolecular Chemistry & Molecular Recognition"
+          ],
+          "hours": 3,
+          "reference": "NPTEL & Class Notes for CYL609"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-21",
+      "total_hours": 4,
+      "blocks": [
+        {
+          "time_range": "09:00 - 12:00",
+          "course": "CYL609",
+          "type": "study",
+          "topics": [
+            "Design & Synthesis of Porous Crystalline Materials"
+          ],
+          "hours": 3,
+          "reference": "NPTEL & Class Notes for CYL609"
+        },
+        {
+          "time_range": "14:00 - 15:00",
+          "course": "LA302",
+          "type": "study",
+          "topics": [
+            "Intercultural Communication and Pragmatics"
+          ],
+          "hours": 1,
+          "reference": "NPTEL & Class Notes for LA302"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-22",
+      "total_hours": 4,
+      "blocks": [
+        {
+          "time_range": "09:00 - 10:00",
+          "course": "LA302",
+          "type": "study",
+          "topics": [
+            "Intercultural Communication and Pragmatics"
+          ],
+          "hours": 1,
+          "reference": "NPTEL & Class Notes for LA302"
+        },
+        {
+          "time_range": "12:00 - 15:00",
+          "course": "CYL609",
+          "type": "study",
+          "topics": [
+            "Stimuli-Responsive Functional Materials & Solid-State Transformations"
+          ],
+          "hours": 3,
+          "reference": "NPTEL & Class Notes for CYL609"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-23",
+      "total_hours": 4,
+      "blocks": [
+        {
+          "time_range": "09:00 - 12:00",
+          "course": "CYL609",
+          "type": "study",
+          "topics": [
+            "Crystal Engineering & Non-Covalent Interactions"
+          ],
+          "hours": 3,
+          "reference": "NPTEL & Class Notes for CYL609"
+        },
+        {
+          "time_range": "14:00 - 15:00",
+          "course": "LA302",
+          "type": "study",
+          "topics": [
+            "Intercultural Communication and Pragmatics"
+          ],
+          "hours": 1,
+          "reference": "NPTEL & Class Notes for LA302"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "total_hours": 4,
+      "blocks": [
+        {
+          "time_range": "09:00 - 11:00",
+          "course": "LA302",
+          "type": "buffer",
+          "topics": [
+            "Intensive Formula Sheet, PYQs & Revision for LA302"
+          ],
+          "hours": 2,
+          "reference": "NPTEL & Class Notes for LA302"
+        },
+        {
+          "time_range": "13:00 - 15:00",
+          "course": "CYL609",
+          "type": "buffer",
+          "topics": [
+            "Intensive Formula Sheet, PYQs & Revision for CYL609"
+          ],
+          "hours": 2,
+          "reference": "NPTEL & Class Notes for CYL609"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-25",
+      "total_hours": 4,
+      "blocks": [
+        {
+          "time_range": "09:00 - 11:00",
+          "course": "LA302",
+          "type": "revision",
+          "topics": [
+            "Final Formula & Concept Recap for LA302 before hall entry"
+          ],
+          "hours": 2,
+          "reference": "NPTEL & Class Notes for LA302"
+        },
+        {
+          "time_range": "13:00 - 15:00",
+          "course": "CYL609",
+          "type": "revision",
+          "topics": [
+            "Final Formula & Concept Recap for CYL609 before hall entry"
+          ],
+          "hours": 2,
+          "reference": "NPTEL & Class Notes for CYL609"
+        }
+      ]
+    }
+  ],
+  "workload_weights": [
+    {
+      "course_code": "CYL609",
+      "course_name": "Crystal Engineering & Supramolecular Materials",
+      "credits": 4.0,
+      "num_topics": 5,
+      "content_volume_label": "Advanced Postgraduate / Specialist Rigor (Comprehensive content)",
+      "depth_multiplier": 1.45,
+      "composite_weight": 12.97,
+      "workload_percentage": 82.2,
+      "recommended_total_hours": 26.3
+    },
+    {
+      "course_code": "LA302",
+      "course_name": "LA302",
+      "credits": 4.0,
+      "num_topics": 1,
+      "content_volume_label": "Foundational Communication & Soft Skills (Concise modules)",
+      "depth_multiplier": 0.7,
+      "composite_weight": 2.8,
+      "workload_percentage": 17.8,
+      "recommended_total_hours": 5.7
+    }
+  ],
+  "credit_distribution": {
+    "CYL609": 4.0,
+    "LA302": 4.0
+  },
+  "gemma_recommendations": "Gemma 4 Pedagogical Workload Strategy:\n1. Credit & Volume Weighting: High-credit core theory subjects (CYL609 (4.0 cr, 82.2%)) account for the majority of study time with deep 2.5-3.5h immersion blocks for derivations and problem sets.\n2. Focused Practical Sessions: Lab courses and communication modules are scheduled in targeted 1.0-1.5h sessions to maximize retention without depleting focus from heavy subjects.\n3. Dedicated 24h Buffer Slots: Pre-exam intensive revision buffers are strictly reserved immediately prior to each paper for formula sheets and previous-year questions."
+}

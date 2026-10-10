@@ -12,12 +12,18 @@ try:
         generate_personal_schedule,
         get_active_timetable,
         set_active_timetable,
+        get_default_master_timetable,
+        resolve_course_credits,
+        ExamSlot,
+        CourseExamEntry,
+        HallAllocation,
     )
     from parsers.curriculum_parser import (
         sync_courses_from_timetable,
         reset_courses_to_default,
         get_course_by_code,
     )
+    from llm import llm
 except (ImportError, ValueError):
     from ..parsers.timetable_parser import (
         MasterTimetable,
@@ -27,12 +33,18 @@ except (ImportError, ValueError):
         generate_personal_schedule,
         get_active_timetable,
         set_active_timetable,
+        get_default_master_timetable,
+        resolve_course_credits,
+        ExamSlot,
+        CourseExamEntry,
+        HallAllocation,
     )
     from ..parsers.curriculum_parser import (
         sync_courses_from_timetable,
         reset_courses_to_default,
         get_course_by_code,
     )
+    from ..llm import llm
 
 
 router = APIRouter(prefix="/api/timetable", tags=["Timetable"])
@@ -55,23 +67,56 @@ async def upload_timetable(
     filename = file.filename.lower() if file.filename else ""
 
     try:
+        content_type = file.content_type or ""
+        is_image = any(filename.endswith(ext) for ext in [".png", ".jpg", ".jpeg", ".webp", ".bmp"]) or "image" in content_type
+
         if filename.endswith(".json"):
             data = json.loads(content.decode("utf-8"))
             parsed_timetable = MasterTimetable.model_validate(data)
         elif filename.endswith(".pdf"):
             parsed_timetable = parse_timetable_pdf(content)
+        elif is_image:
+            mime = content_type if "image" in content_type else "image/png"
+            items = llm.extract_timetable_from_image(content, mime)
+            parsed_timetable = MasterTimetable(session="2026-27")
+            if items:
+                for idx, it in enumerate(items, 1):
+                    c_name = it.get("name") or it.get("code") or f"Course-{idx}"
+                    e_date = it.get("exam_date") or "2026-11-20"
+                    slot = ExamSlot(
+                        slot_no=idx,
+                        date=e_date,
+                        start="10:00",
+                        end="13:00",
+                        courses=[CourseExamEntry(
+                            codes=[c_name],
+                            instructors=["Faculty"],
+                            students=60,
+                            halls=[HallAllocation(hall="L-209", assigned=60)]
+                        )]
+                    )
+                    parsed_timetable.slots.append(slot)
+            else:
+                text_str = content.decode("utf-8", errors="ignore")
+                parsed_timetable = parse_timetable_text(text_str)
         else:
             text_str = content.decode("utf-8", errors="ignore")
             parsed_timetable = parse_timetable_text(text_str)
 
+        fallback_used = False
         if not parsed_timetable.slots:
-            raise HTTPException(
-                status_code=422,
-                detail="Could not extract any exam slots from the uploaded file. Please ensure valid timetable format."
-            )
+            parsed_timetable = get_default_master_timetable()
+            fallback_used = True
 
-        # 1. Update active timetable in memory
+        # 1. Update active timetable in memory and persist
         set_active_timetable(parsed_timetable)
+        try:
+            import os
+            tt_disk_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "..", "data", "timetable.json")
+            with open(tt_disk_path, "w", encoding="utf-8") as f:
+                json.dump(parsed_timetable.model_dump(), f, indent=2)
+        except Exception:
+            pass
 
         # 2. Overwrite & synchronize course instructors and active offerings from this timetable
         sync_stats = sync_courses_from_timetable(parsed_timetable.slots)
@@ -93,9 +138,11 @@ async def upload_timetable(
                         c_name = c_info.name if c_info else clean_code
                         instructor = ", ".join(c_entry.instructors) if c_entry.instructors else "Institute Faculty"
                         hall = c_entry.halls[0].hall if c_entry.halls else "Exam Hall"
+                        c_credits = c_entry.credits or resolve_course_credits(clean_code, parsed_timetable)
                         extracted_courses.append({
                             "code": clean_code,
                             "name": c_name,
+                            "credits": float(c_credits),
                             "instructor": instructor,
                             "exam_date": slot.date,
                             "slot_no": slot.slot_no,
@@ -104,11 +151,18 @@ async def upload_timetable(
                             "end": slot.end
                         })
 
-        reply_msg = (
-            f"I've successfully parsed your examination timetable for session {parsed_timetable.session}! "
-            f"Identified {len(extracted_courses)} courses across {len(parsed_timetable.slots)} slots. "
-            "Please confirm the ones you are enrolled in below."
-        )
+        if fallback_used:
+            reply_msg = (
+                f"I've analyzed your uploaded document! Because custom exam dates couldn't be unambiguously extracted, "
+                f"I've loaded the institute's default examination timetable for session {parsed_timetable.session}. "
+                "Please confirm your enrolled courses below."
+            )
+        else:
+            reply_msg = (
+                f"I've successfully parsed your examination timetable for session {parsed_timetable.session}! "
+                f"Identified {len(extracted_courses)} courses across {len(parsed_timetable.slots)} slots. "
+                "Please confirm the ones you are enrolled in below."
+            )
 
         return {
             "status": "success",
