@@ -569,7 +569,11 @@ def query_rag(
         }
     """
     # Import here to avoid circular imports at module load time
-    from .llm import llm  # type: ignore
+    try:
+        from llm import llm  # type: ignore
+    except (ImportError, ValueError):
+        from .llm import llm  # type: ignore
+
 
     chat_history = chat_history or []
     enrolled_courses = enrolled_courses or [course_code]

@@ -15,14 +15,35 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from routes.timetable import router as timetable_router
+from routes.courses import router as courses_router
+from routes.planner import router as planner_router
+from routes.chat import router as chat_router
+
+# Include API Routers
+app.include_router(timetable_router)
+app.include_router(courses_router)
+app.include_router(planner_router)
+app.include_router(chat_router)
+
+
+
+
 @app.get("/")
 def read_root():
     return {
         "name": "Campus Exam Preparation Agent API",
         "status": "online",
-        "docs_url": "/docs"
+        "docs_url": "/docs",
+        "features": [
+            "Dynamic Exam Timetable PDF Upload & Parsing",
+            "Personalized Exam Scheduling & Clash Detection",
+            "Course Curriculum & Topic Scope Management",
+            "Gemma 4 Study Planner & RAG Copilot"
+        ]
     }
 
 @app.get("/api/health")
 def health_check():
     return {"status": "ok", "model": "gemma-4"}
+
