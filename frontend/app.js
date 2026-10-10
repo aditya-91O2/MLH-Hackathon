@@ -48,18 +48,18 @@ function initUI() {
 
     document.getElementById('reset-demo-btn').addEventListener('click', () => location.reload());
 
-    initialUpload.addEventListener('change', (e) => {
-        if (e.target.files.length > 0) {
-            const fileName = e.target.files[0].name;
+    const startBtn = document.getElementById('start-processing-btn');
+    if (startBtn) {
+        startBtn.addEventListener('click', (e) => {
             const uploadArea = document.getElementById('initial-upload-area');
             if (uploadArea) uploadArea.classList.add('hidden');
             
-            appendMessage('user', `[Uploaded file: ${fileName}]`);
+            appendMessage('user', `[Uploaded Exam Timetable, Master Timetable, and Course of Study]`);
             chatComposer.classList.remove('hidden');
             
             // Show processing message
             const loadingId = 'loading-' + Date.now();
-            appendMessage('assistant', `<span id="${loadingId}">Processing timetable using Gemma... ⏳</span>`);
+            appendMessage('assistant', `<span id="${loadingId}">Analyzing your documents with Gemma... ⏳</span>`);
             
             // Wait 1.5 seconds to simulate Gemma processing
             setTimeout(() => {
@@ -68,8 +68,8 @@ function initUI() {
                 
                 showCourseReview();
             }, 1500);
-        }
-    });
+        });
+    }
 
     chatSend.addEventListener('click', handleChatSubmit);
     chatInput.addEventListener('keypress', (e) => {
@@ -190,54 +190,170 @@ function showTopicsAndResources() {
     const data = demoData.gemma_topics;
     appendMessage('assistant', escapeHtml(data.reply));
 
+    const uniqueCourses = [...new Set(data.topics.map(t => t.course))];
     let topicsHtml = '';
-    data.topics.forEach((t, i) => {
+    
+    uniqueCourses.forEach(course => {
+        const courseTopics = data.topics.map((t, i) => ({...t, index: i})).filter(t => t.course === course);
+        
         topicsHtml += `
-            <div class="selection-item">
-                <div class="selection-left">
-                    <input type="checkbox" id="topic-${i}" class="selection-checkbox" ${t.included ? 'checked' : ''}>
-                    <label for="topic-${i}"><strong>${escapeHtml(t.course)}:</strong> ${escapeHtml(t.topic)}</label>
-                </div>
-            </div>
+            <div style="margin-bottom: 16px;">
+                <h6 style="color: var(--indigo-dark); margin-bottom: 8px; font-size: 0.95rem;">${escapeHtml(course)}</h6>
+                <div class="selection-list" style="margin-bottom: 0;">
         `;
+        courseTopics.forEach(t => {
+            topicsHtml += `
+                <div class="selection-item" style="padding: 8px 12px;">
+                    <div class="selection-left">
+                        <input type="checkbox" id="topic-${t.index}" class="selection-checkbox" ${t.included ? 'checked' : ''}>
+                        <label for="topic-${t.index}">${escapeHtml(t.topic)}</label>
+                    </div>
+                </div>
+            `;
+        });
+        topicsHtml += `</div></div>`;
     });
 
-    // Generate per-course material upload areas
-    const uniqueCourses = [...new Set(data.topics.map(t => t.course))];
-    let courseUploadsHtml = '';
+    let courseUploadsHtml = '<div id="sequential-uploads-container">';
     uniqueCourses.forEach((course, i) => {
+        const hiddenClass = i === 0 ? '' : 'hidden';
+        
         courseUploadsHtml += `
-            <div style="margin-bottom: 16px; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; background: #f8fafc;">
-                <h5 style="margin-bottom: 8px; color: var(--indigo-dark);">${escapeHtml(course)}</h5>
-                <label class="material-upload-label" style="cursor:pointer; display: block; margin-bottom: 8px;">
-                    <span style="font-size:1.2rem;">📁</span> Upload Syllabus/PPTs
-                    <input type="file" class="hidden" accept=".pdf,.ppt,.pptx">
-                </label>
+            <div id="upload-block-${i}" class="course-upload-block ${hiddenClass}" style="margin-bottom: 16px; padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; background: #f8fafc;">
+                <h5 style="margin-bottom: 10px; color: var(--indigo-dark);">${escapeHtml(course)}</h5>
+                
+                <div id="upload-area-${i}">
+                    <label class="material-upload-label" style="cursor:pointer; display: block; margin-bottom: 12px;">
+                        <span style="font-size:1.2rem;">📁</span> Upload Syllabus/PPTs (Select multiple)
+                        <input type="file" id="file-input-${i}" class="hidden" accept=".pdf,.ppt,.pptx" multiple onchange="handleCourseUpload(${i}, ${uniqueCourses.length})">
+                    </label>
+                </div>
+                
+                <div id="uploaded-file-display-${i}" class="hidden" style="margin-bottom: 12px; padding: 10px; background: #e0f2fe; border: 1px solid #bae6fd; border-radius: 6px; color: #0369a1; font-size: 0.9rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center;">
+                    <span id="uploaded-file-text-${i}"></span>
+                    <button class="btn btn-outline btn-sm" style="background: white; padding: 4px 8px; font-size: 0.8rem; border-color: #bae6fd; color: #0369a1;" onclick="discardCourseUpload(${i}, ${uniqueCourses.length})">Discard</button>
+                </div>
+
                 <div style="display:flex; align-items:center; gap:6px;">
                     <input type="checkbox" id="req-video-${i}" checked style="width:14px;height:14px;">
                     <label for="req-video-${i}" style="font-size: 0.85rem; color: var(--text-main);">Request video explanations (YouTube/NPTEL)</label>
                 </div>
+                
+                <button id="skip-btn-${i}" class="btn btn-outline btn-sm mt-3" style="width:100%; border-color:#cbd5e1; color:#64748b;" onclick="handleCourseUpload(${i}, ${uniqueCourses.length}, true)">Skip Upload</button>
             </div>
         `;
     });
+    courseUploadsHtml += '</div>';
 
     const cardId = 'topics-card-' + Date.now();
     const cardHtml = `
         <div class="inline-card" id="${cardId}">
-            <h4>Syllabus Scope & Materials</h4>
-            <p class="mb-2" style="font-size:0.9rem;font-weight:600;">Core Topics:</p>
-            <div class="selection-list">
+            <h4 style="margin-bottom:20px;">Syllabus Scope & Materials</h4>
+            
+            <p class="mb-2" style="font-size:0.9rem;font-weight:600;">Core Topics by Course:</p>
+            <div style="padding: 12px; border: 1px dashed var(--border-color); border-radius: 8px; background: white; margin-bottom: 24px;">
                 ${topicsHtml}
             </div>
             
-            <p class="mb-2" style="font-size:0.9rem;font-weight:600; margin-top: 20px;">Provide Course Materials:</p>
+            <p class="mb-2" style="font-size:0.9rem;font-weight:600;">Provide Course Materials (Step-by-step):</p>
             ${courseUploadsHtml}
 
-            <button class="btn btn-primary w-full mt-4" onclick="submitMaterials('${cardId}')">Analyze Materials</button>
+            <button id="analyze-materials-btn" class="btn btn-secondary w-full mt-2" disabled style="opacity:0.6; cursor:not-allowed;" onclick="submitMaterials('${cardId}')">Complete uploads to continue</button>
         </div>
     `;
     
     appendCustomCard(cardHtml);
+}
+
+window.handleCourseUpload = function(currentIndex, totalCourses, isSkip = false) {
+    if (!isSkip) {
+        const fileInput = document.getElementById(`file-input-${currentIndex}`);
+        if (fileInput && fileInput.files.length > 0) {
+            const filesList = Array.from(fileInput.files).map(f => `<strong>${escapeHtml(f.name)}</strong>`).join(', ');
+            const textEl = document.getElementById(`uploaded-file-text-${currentIndex}`);
+            const displayEl = document.getElementById(`uploaded-file-display-${currentIndex}`);
+            const uploadArea = document.getElementById(`upload-area-${currentIndex}`);
+            const skipBtn = document.getElementById(`skip-btn-${currentIndex}`);
+            
+            if (displayEl && textEl) {
+                textEl.innerHTML = `✓ Uploaded: ${filesList}`;
+                displayEl.classList.remove('hidden');
+                displayEl.style.background = '#e0f2fe';
+                displayEl.style.borderColor = '#bae6fd';
+                displayEl.style.color = '#0369a1';
+            }
+            if (uploadArea) uploadArea.classList.add('hidden');
+            if (skipBtn) skipBtn.classList.add('hidden');
+        }
+    } else {
+        const textEl = document.getElementById(`uploaded-file-text-${currentIndex}`);
+        const displayEl = document.getElementById(`uploaded-file-display-${currentIndex}`);
+        const uploadArea = document.getElementById(`upload-area-${currentIndex}`);
+        const skipBtn = document.getElementById(`skip-btn-${currentIndex}`);
+        
+        if (displayEl && textEl) {
+            textEl.innerHTML = `<em>No file uploaded.</em>`;
+            displayEl.classList.remove('hidden');
+            displayEl.style.background = '#f1f5f9';
+            displayEl.style.borderColor = '#cbd5e1';
+            displayEl.style.color = '#475569';
+        }
+        if (uploadArea) uploadArea.classList.add('hidden');
+        if (skipBtn) skipBtn.classList.add('hidden');
+    }
+
+    const nextIndex = currentIndex + 1;
+    if (nextIndex < totalCourses) {
+        const nextBlock = document.getElementById(`upload-block-${nextIndex}`);
+        if (nextBlock) nextBlock.classList.remove('hidden');
+    }
+    
+    checkAllUploadsComplete(totalCourses);
+}
+
+window.discardCourseUpload = function(currentIndex, totalCourses) {
+    const fileInput = document.getElementById(`file-input-${currentIndex}`);
+    if (fileInput) fileInput.value = '';
+    
+    const displayEl = document.getElementById(`uploaded-file-display-${currentIndex}`);
+    const uploadArea = document.getElementById(`upload-area-${currentIndex}`);
+    const skipBtn = document.getElementById(`skip-btn-${currentIndex}`);
+    
+    if (displayEl) displayEl.classList.add('hidden');
+    if (uploadArea) uploadArea.classList.remove('hidden');
+    if (skipBtn) skipBtn.classList.remove('hidden');
+    
+    checkAllUploadsComplete(totalCourses);
+}
+
+function checkAllUploadsComplete(totalCourses) {
+    let allDone = true;
+    for (let i = 0; i < totalCourses; i++) {
+        const displayEl = document.getElementById(`uploaded-file-display-${i}`);
+        if (!displayEl || displayEl.classList.contains('hidden')) {
+            allDone = false;
+            break;
+        }
+    }
+    
+    const analyzeBtn = document.getElementById('analyze-materials-btn');
+    if (analyzeBtn) {
+        if (allDone) {
+            analyzeBtn.disabled = false;
+            analyzeBtn.textContent = "Analyze Materials";
+            analyzeBtn.style.opacity = '1';
+            analyzeBtn.style.cursor = 'pointer';
+            analyzeBtn.classList.remove('btn-secondary');
+            analyzeBtn.classList.add('btn-primary');
+        } else {
+            analyzeBtn.disabled = true;
+            analyzeBtn.textContent = "Complete uploads to continue";
+            analyzeBtn.style.opacity = '0.6';
+            analyzeBtn.style.cursor = 'not-allowed';
+            analyzeBtn.classList.add('btn-secondary');
+            analyzeBtn.classList.remove('btn-primary');
+        }
+    }
 }
 
 window.submitMaterials = function(cardId) {
