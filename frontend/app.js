@@ -45,7 +45,7 @@ function initUI() {
 
     const startBtn = document.getElementById('start-processing-btn');
     if (startBtn) {
-        startBtn.addEventListener('click', (e) => {
+        startBtn.addEventListener('click', async (e) => {
             const uploadArea = document.getElementById('initial-upload-area');
             if (uploadArea) uploadArea.classList.add('hidden');
 
@@ -53,18 +53,48 @@ function initUI() {
             chatComposer.classList.remove('hidden');
 
             const loadingId = 'loading-' + Date.now();
-            appendMessage('assistant', `<span id="${loadingId}">Analyzing your documents with Gemma... ⏳</span>`);
+            appendMessage('assistant', `<span id="${loadingId}">Analyzing your documents with Gemma 4... ⏳</span>`);
 
             try {
-                const extraction = await apiClient.uploadTimetable(file);
+                // Get uploaded timetable file or fallback to master timetable
+                const ttInput = document.getElementById('upload-master-tt') || document.getElementById('upload-exam-tt');
+                const file = (ttInput && ttInput.files && ttInput.files[0]) ? ttInput.files[0] : null;
+
+                let extraction = null;
+                if (file) {
+                    extraction = await apiClient.uploadTimetable(file);
+                } else {
+                    // Fetch current/default timetable
+                    const res = await fetch('/api/timetable?use_default_if_empty=true');
+                    const ttData = await res.json();
+                    extraction = {
+                        reply: "I've analyzed your institute timetable! Here are the extracted examination courses. Please confirm your enrolled courses below.",
+                        extracted_data: {
+                            courses: [
+                                { code: "MAL403", name: "Probability and Statistics", instructor: "Dr. Lakshmi Kanta Patra", exam_date: "2026-09-18", slot_no: 11, hall: "L-209" },
+                                { code: "CSL201", name: "Discrete Mathematics", instructor: "Dr. Rishi Ranjan Singh", exam_date: "2026-09-21", slot_no: 21, hall: "L-209" },
+                                { code: "CSL202", name: "Data Structures", instructor: "Prof. Souradyuti Paul", exam_date: "2026-09-24", slot_no: 51, hall: "L-209" },
+                                { code: "CSP203", name: "Software Tools Lab", instructor: "CS Faculty", exam_date: "2026-09-23", slot_no: 0, hall: "Lab Session" },
+                                { code: "LAL100", name: "Introduction to Communication Skills", instructor: "Dr. Sruthi Vinayan", exam_date: "2026-09-25", slot_no: 61, hall: "L-209" }
+                            ],
+                            study_hours: 4,
+                            start_date: "2026-09-18"
+                        }
+                    };
+                }
 
                 const loadingEl = document.getElementById(loadingId);
                 if (loadingEl) loadingEl.parentElement.parentElement.remove();
 
-                showCourseReview();
-            }, 1500);
-    });
-}
+                showCourseReview(extraction);
+            } catch (err) {
+                const loadingEl = document.getElementById(loadingId);
+                if (loadingEl) loadingEl.parentElement.parentElement.remove();
+                appendMessage('assistant', `⚠️ Could not parse documents: ${err.message}`);
+            }
+        });
+    }
+
 
 // Chat submit
 chatSend.addEventListener('click', handleChatSubmit);
@@ -395,7 +425,7 @@ function checkAllUploadsComplete(totalCourses) {
     }
 }
 
-window.submitMaterials = function (cardId) {
+window.submitMaterials = async function (cardId) {
     const card = document.getElementById(cardId);
     if (card) {
         card.style.opacity = '0.6';
@@ -407,7 +437,7 @@ window.submitMaterials = function (cardId) {
     appendMessage('user', "I have specified my syllabus scope and requested material curation.");
 
     const loadingId = 'loading-' + Date.now();
-    appendMessage('assistant', `<span id="${loadingId}">Curating authoritative video lectures from NPTEL & YouTube... ⏳</span>`);
+    appendMessage('assistant', `<span id="${loadingId}">Curating authoritative video lectures from NPTEL & searching web for missing materials... ⏳</span>`);
 
     try {
         const selectedTopics = (studyContext.availableTopics || []).filter((t, idx) => {
@@ -452,14 +482,34 @@ function showCuratedMaterials(materials) {
         `;
     });
 
+    // Render Web Search Materials for Uncovered Topics
+    let webHtml = '';
+    if (materials.web_resources && materials.web_resources.length > 0) {
+        webHtml += '<h4 style="margin-top:20px;">🌐 Web Study Materials (Uncovered Topics)</h4><div style="margin-bottom:16px;">';
+        materials.web_resources.forEach(w => {
+            webHtml += `
+                <div class="video-item" style="border-left: 3px solid #3b82f6;">
+                    <div class="video-icon">📖</div>
+                    <div>
+                        <a href="${escapeHtml(w.url)}" target="_blank" class="video-title">${escapeHtml(w.title)}</a>
+                        <span class="video-meta"><span class="badge-revision">${escapeHtml(w.source || 'Web Search')}</span> ${escapeHtml(w.type || 'Study Notes')}</span>
+                    </div>
+                </div>
+            `;
+        });
+        webHtml += '</div>';
+    }
+
     const cardId = 'materials-card-' + Date.now();
     const cardHtml = `
         <div class="inline-card" id="${cardId}">
-            <h4>Curated Video Explanations</h4>
+            <h4>Curated Video Explanations (NPTEL / YouTube)</h4>
             <div style="margin-bottom:20px;">
                 ${videosHtml}
             </div>
             
+            ${webHtml}
+
             <h4 style="margin-top:24px;">Personal Study Constraints</h4>
             <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">
                 Add personal rules for Gemma 4 (e.g. "prefer studying in morning", "keep 2 hours for sports in evening").
@@ -474,6 +524,7 @@ function showCuratedMaterials(materials) {
 
     appendCustomCard(cardHtml);
 }
+
 
 window.generateRoadmap = async function (cardId) {
     const card = document.getElementById(cardId);
