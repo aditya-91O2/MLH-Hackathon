@@ -16,6 +16,7 @@ try:
     from parsers.curriculum_parser import (
         sync_courses_from_timetable,
         reset_courses_to_default,
+        get_course_by_code,
     )
 except (ImportError, ValueError):
     from ..parsers.timetable_parser import (
@@ -30,6 +31,7 @@ except (ImportError, ValueError):
     from ..parsers.curriculum_parser import (
         sync_courses_from_timetable,
         reset_courses_to_default,
+        get_course_by_code,
     )
 
 
@@ -47,6 +49,7 @@ async def upload_timetable(
     - The timetable is dynamically parsed.
     - Set as the active timetable.
     - Overwrites course offerings and instructors based on this live timetable.
+    - Returns exact JSON format expected by the frontend.
     """
     content = await file.read()
     filename = file.filename.lower() if file.filename else ""
@@ -73,9 +76,48 @@ async def upload_timetable(
         # 2. Overwrite & synchronize course instructors and active offerings from this timetable
         sync_stats = sync_courses_from_timetable(parsed_timetable.slots)
 
+        # 3. Format extracted courses for frontend consumption
+        extracted_courses = []
+        seen_codes = set()
+        min_date = None
+
+        for slot in parsed_timetable.slots:
+            if not min_date or slot.date < min_date:
+                min_date = slot.date
+            for c_entry in slot.courses:
+                for code in c_entry.codes:
+                    clean_code = code.strip().upper()
+                    if clean_code not in seen_codes:
+                        seen_codes.add(clean_code)
+                        c_info = get_course_by_code(clean_code)
+                        c_name = c_info.name if c_info else clean_code
+                        instructor = ", ".join(c_entry.instructors) if c_entry.instructors else "Institute Faculty"
+                        hall = c_entry.halls[0].hall if c_entry.halls else "Exam Hall"
+                        extracted_courses.append({
+                            "code": clean_code,
+                            "name": c_name,
+                            "instructor": instructor,
+                            "exam_date": slot.date,
+                            "slot_no": slot.slot_no,
+                            "hall": hall,
+                            "start": slot.start,
+                            "end": slot.end
+                        })
+
+        reply_msg = (
+            f"I've successfully parsed your examination timetable for session {parsed_timetable.session}! "
+            f"Identified {len(extracted_courses)} courses across {len(parsed_timetable.slots)} slots. "
+            "Please confirm the ones you are enrolled in below."
+        )
+
         return {
             "status": "success",
-            "message": f"Successfully parsed and set active timetable from {file.filename}",
+            "reply": reply_msg,
+            "extracted_data": {
+                "courses": extracted_courses,
+                "study_hours": 4,
+                "start_date": min_date or "2026-09-18"
+            },
             "total_slots": len(parsed_timetable.slots),
             "session": parsed_timetable.session,
             "exam_type": parsed_timetable.exam_type,
@@ -85,6 +127,7 @@ async def upload_timetable(
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to parse uploaded timetable: {str(e)}")
+
 
 @router.get("", summary="Get current active master timetable")
 def get_current_timetable(use_default_if_empty: bool = False):

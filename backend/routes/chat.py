@@ -35,6 +35,7 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     answer: str
+    reply: Optional[str] = None
     intent: str
     citations: list[dict]
     video_recommendations: list[dict]
@@ -61,8 +62,10 @@ def chat(req: ChatRequest):
         timetable_data=req.timetable_data,
     )
 
+    answer_text = result.get("answer", "")
     return ChatResponse(
-        answer=result["answer"],
+        answer=answer_text,
+        reply=answer_text,
         intent=result["intent"],
         citations=result["citations"],
         video_recommendations=result["video_recommendations"],
@@ -70,3 +73,4 @@ def chat(req: ChatRequest):
         clarification_question=result["clarification_question"],
         normalized_course=normalize_course_code(req.course_code),
     )
+

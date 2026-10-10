@@ -1,12 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Study Planner - Strict Format Demo");
-    loadDemoData();
+    console.log("Study Planner - Live Backend & Gemma 4 Connected");
     initUI();
 });
 
 // State
-let demoData = null;
-let studyContext = { courses: [] };
+let studyContext = {
+    courses: [],
+    study_hours: 4,
+    start_date: null,
+    selectedTopics: []
+};
+let chatHistory = [];
 
 // DOM Elements
 const chatHistoryEl = document.getElementById('chat-history');
@@ -15,28 +19,19 @@ const chatComposer = document.getElementById('chat-composer');
 const chatInput = document.getElementById('chat-input');
 const chatSend = document.getElementById('chat-send');
 
-async function loadDemoData() {
-    try {
-        const res = await fetch('data/demo-data.json');
-        demoData = await res.json();
-    } catch (e) {
-        console.error("Failed to load demo data:", e);
-    }
-}
-
 function escapeHtml(unsafe) {
     if (!unsafe) return '';
     return unsafe.toString()
-         .replace(/&/g, "&amp;")
-         .replace(/</g, "&lt;")
-         .replace(/>/g, "&gt;");
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
 }
 
 function updateContextSummary() {
     const activeCount = studyContext.courses.filter(c => c.selected !== false).length;
     document.getElementById('summary-course-count').textContent = activeCount;
-    if (demoData && demoData.gemma_extraction) {
-        document.getElementById('summary-study-hours').textContent = demoData.gemma_extraction.extracted_data.study_hours;
+    if (studyContext.study_hours) {
+        document.getElementById('summary-study-hours').textContent = studyContext.study_hours;
     }
 }
 
@@ -53,48 +48,87 @@ function initUI() {
         startBtn.addEventListener('click', (e) => {
             const uploadArea = document.getElementById('initial-upload-area');
             if (uploadArea) uploadArea.classList.add('hidden');
-            
+
             appendMessage('user', `[Uploaded Exam Timetable, Master Timetable, and Course of Study]`);
             chatComposer.classList.remove('hidden');
-            
-            // Show processing message
+
             const loadingId = 'loading-' + Date.now();
             appendMessage('assistant', `<span id="${loadingId}">Analyzing your documents with Gemma... ⏳</span>`);
-            
-            // Wait 1.5 seconds to simulate Gemma processing
-            setTimeout(() => {
+
+            try {
+                const extraction = await apiClient.uploadTimetable(file);
+
                 const loadingEl = document.getElementById(loadingId);
                 if (loadingEl) loadingEl.parentElement.parentElement.remove();
-                
+
                 showCourseReview();
             }, 1500);
-        });
-    }
-
-    chatSend.addEventListener('click', handleChatSubmit);
-    chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            handleChatSubmit();
-        }
     });
 }
 
-function handleChatSubmit() {
+// Chat submit
+chatSend.addEventListener('click', handleChatSubmit);
+chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleChatSubmit();
+    }
+});
+}
+
+// ----------------------------------------------------
+// Live Chat / Doubt Clearing
+// ----------------------------------------------------
+async function handleChatSubmit() {
     const text = chatInput.value.trim();
     if (!text) return;
+
     appendMessage('user', text);
+    chatHistory.push({ role: 'user', content: text });
     chatInput.value = '';
-    
-    setTimeout(() => {
-        appendMessage('assistant', "[Demo Mode] I am currently disconnected from live processing. Please follow the demonstrated roadmap workflow cards above.");
-    }, 600);
+
+    const loadingId = 'loading-' + Date.now();
+    appendMessage('assistant', `<span id="${loadingId}">Gemma 4 is analyzing your query... ⏳</span>`);
+
+    // Determine primary active course
+    const activeCourse = (studyContext.courses.find(c => c.selected !== false) || {}).code || "CSL202";
+    const enrolledCodes = studyContext.courses.map(c => c.code).filter(Boolean);
+
+    try {
+        const res = await apiClient.sendChat({
+            course_code: activeCourse,
+            message: text,
+            history: chatHistory.slice(-6),
+            enrolled_courses: enrolledCodes
+        });
+
+        const loadingEl = document.getElementById(loadingId);
+        if (loadingEl) loadingEl.parentElement.parentElement.remove();
+
+        const answerText = res.answer || res.reply || "I've reviewed your question.";
+        let formatted = escapeHtml(answerText).replace(/\n/g, '<br>');
+
+        if (res.video_recommendations && res.video_recommendations.length > 0) {
+            formatted += `<br><br><strong>Recommended NPTEL / Video Lectures:</strong><ul>`;
+            res.video_recommendations.forEach(v => {
+                formatted += `<li><a href="${escapeHtml(v.url)}" target="_blank">${escapeHtml(v.title)}</a> (${escapeHtml(v.channel || 'NPTEL')})</li>`;
+            });
+            formatted += `</ul>`;
+        }
+
+        appendMessage('assistant', formatted);
+        chatHistory.push({ role: 'assistant', content: answerText });
+    } catch (err) {
+        const loadingEl = document.getElementById(loadingId);
+        if (loadingEl) loadingEl.parentElement.parentElement.remove();
+        appendMessage('assistant', `⚠️ Could not get AI response: ${err.message}`);
+    }
 }
 
 function appendMessage(role, text) {
     const msgDiv = document.createElement('div');
     msgDiv.className = `message ${role}`;
-    msgDiv.innerHTML = `<p>${text}</p>`; // Not escaping here so we can inject spans for loading
+    msgDiv.innerHTML = `<p>${text}</p>`;
     chatHistoryEl.appendChild(msgDiv);
     chatHistoryEl.scrollTop = chatHistoryEl.scrollHeight;
 }
@@ -107,17 +141,16 @@ function appendCustomCard(htmlString) {
 }
 
 // ----------------------------------------------------
-// UI Flow: Step 1 - Course Review
+// UI Flow: Step 1 - Course Review (Live Data)
 // ----------------------------------------------------
-function showCourseReview() {
-    const extraction = demoData.gemma_extraction;
-    
-    // Deep copy into local state
-    studyContext.courses = JSON.parse(JSON.stringify(extraction.extracted_data.courses));
+function showCourseReview(extraction) {
+    studyContext.courses = JSON.parse(JSON.stringify(extraction.extracted_data.courses || []));
+    studyContext.study_hours = extraction.extracted_data.study_hours || 4;
+    studyContext.start_date = extraction.extracted_data.start_date;
     updateContextSummary();
 
     appendMessage('assistant', escapeHtml(extraction.reply));
-    
+
     let listHtml = '';
     studyContext.courses.forEach((course, index) => {
         listHtml += `
@@ -125,14 +158,14 @@ function showCourseReview() {
                 <div class="selection-left" style="align-items: flex-start;">
                     <input type="checkbox" id="course-${index}" class="selection-checkbox" checked style="margin-top: 4px;">
                     <label for="course-${index}">
-                        <strong>${escapeHtml(course.code || '')}</strong>: ${escapeHtml(course.name)}
+                        <strong>${escapeHtml(course.code || '')}</strong>: ${escapeHtml(course.name || course.code)}
                         <span style="display:block; font-size:0.85rem; color:var(--text-muted); margin-top:4px;">
-                            Instructor: ${escapeHtml(course.instructor || 'Not provided')}
+                            Instructor: ${escapeHtml(course.instructor || 'Faculty')} | Slot: ${escapeHtml(course.slot_no || '')} (${escapeHtml(course.hall || 'L-209')})
                         </span>
                     </label>
                 </div>
                 <div class="selection-right">
-                    ${escapeHtml(course.exam_date)}
+                    ${escapeHtml(course.exam_date || '')}
                 </div>
             </div>
         `;
@@ -141,50 +174,56 @@ function showCourseReview() {
     const cardId = 'course-card-' + Date.now();
     const cardHtml = `
         <div class="inline-card" id="${cardId}">
-            <h4>Extracted Courses</h4>
+            <h4>Extracted Examination Courses</h4>
             <div class="selection-list">
                 ${listHtml}
             </div>
             <button class="btn btn-primary" onclick="confirmCourses('${cardId}')">Confirm Selection</button>
         </div>
     `;
-    
+
     appendCustomCard(cardHtml);
 }
 
-window.confirmCourses = function(cardId) {
+window.confirmCourses = async function (cardId) {
     const card = document.getElementById(cardId);
-    if(card) {
+    if (card) {
         card.style.opacity = '0.6';
         card.style.pointerEvents = 'none';
         const btn = card.querySelector('button');
-        if(btn) btn.textContent = "Confirmed ✓";
-        
-        // Update state based on checks
+        if (btn) btn.textContent = "Confirmed ✓";
+
         const checkboxes = card.querySelectorAll('.selection-checkbox');
         checkboxes.forEach((cb, idx) => {
-            if(studyContext.courses[idx]) {
+            if (studyContext.courses[idx]) {
                 studyContext.courses[idx].selected = cb.checked;
             }
         });
         updateContextSummary();
     }
-    
+
     appendMessage('user', "I have confirmed my course selection.");
-    
-    // Simulate processing
+
     const loadingId = 'loading-' + Date.now();
-    appendMessage('assistant', `<span id="${loadingId}">Fetching topics and materials... ⏳</span>`);
-    
-    setTimeout(() => {
+    appendMessage('assistant', `<span id="${loadingId}">Gemma 4 is mapping curriculum topics and prerequisites... ⏳</span>`);
+
+    try {
+        const selectedCourses = studyContext.courses.filter(c => c.selected !== false);
+        const topicsData = await apiClient.fetchTopics(selectedCourses);
+
         const loadingEl = document.getElementById(loadingId);
         if (loadingEl) loadingEl.parentElement.parentElement.remove();
-        showTopicsAndResources();
-    }, 1200);
+
+        showTopicsAndResources(topicsData);
+    } catch (err) {
+        const loadingEl = document.getElementById(loadingId);
+        if (loadingEl) loadingEl.parentElement.parentElement.remove();
+        appendMessage('assistant', `⚠️ Could not fetch course topics: ${err.message}`);
+    }
 }
 
 // ----------------------------------------------------
-// UI Flow: Step 2 - Topics & Materials Request
+// UI Flow: Step 2 - Topics & Materials Request (Live Data)
 // ----------------------------------------------------
 function showTopicsAndResources() {
     const data = demoData.gemma_topics;
@@ -192,10 +231,10 @@ function showTopicsAndResources() {
 
     const uniqueCourses = [...new Set(data.topics.map(t => t.course))];
     let topicsHtml = '';
-    
+
     uniqueCourses.forEach(course => {
-        const courseTopics = data.topics.map((t, i) => ({...t, index: i})).filter(t => t.course === course);
-        
+        const courseTopics = data.topics.map((t, i) => ({ ...t, index: i })).filter(t => t.course === course);
+
         topicsHtml += `
             <div style="margin-bottom: 16px;">
                 <h6 style="color: var(--indigo-dark); margin-bottom: 8px; font-size: 0.95rem;">${escapeHtml(course)}</h6>
@@ -217,7 +256,7 @@ function showTopicsAndResources() {
     let courseUploadsHtml = '<div id="sequential-uploads-container">';
     uniqueCourses.forEach((course, i) => {
         const hiddenClass = i === 0 ? '' : 'hidden';
-        
+
         courseUploadsHtml += `
             <div id="upload-block-${i}" class="course-upload-block ${hiddenClass}" style="margin-bottom: 16px; padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; background: #f8fafc;">
                 <h5 style="margin-bottom: 10px; color: var(--indigo-dark);">${escapeHtml(course)}</h5>
@@ -236,7 +275,7 @@ function showTopicsAndResources() {
 
                 <div style="display:flex; align-items:center; gap:6px;">
                     <input type="checkbox" id="req-video-${i}" checked style="width:14px;height:14px;">
-                    <label for="req-video-${i}" style="font-size: 0.85rem; color: var(--text-main);">Request video explanations (YouTube/NPTEL)</label>
+                    <label for="req-video-${i}" style="font-size: 0.85rem; color: var(--text-main);">Request video explanations (NPTEL / YouTube)</label>
                 </div>
                 
                 <button id="skip-btn-${i}" class="btn btn-outline btn-sm mt-3" style="width:100%; border-color:#cbd5e1; color:#64748b;" onclick="handleCourseUpload(${i}, ${uniqueCourses.length}, true)">Skip Upload</button>
@@ -261,11 +300,11 @@ function showTopicsAndResources() {
             <button id="analyze-materials-btn" class="btn btn-secondary w-full mt-2" disabled style="opacity:0.6; cursor:not-allowed;" onclick="submitMaterials('${cardId}')">Complete uploads to continue</button>
         </div>
     `;
-    
+
     appendCustomCard(cardHtml);
 }
 
-window.handleCourseUpload = function(currentIndex, totalCourses, isSkip = false) {
+window.handleCourseUpload = function (currentIndex, totalCourses, isSkip = false) {
     if (!isSkip) {
         const fileInput = document.getElementById(`file-input-${currentIndex}`);
         if (fileInput && fileInput.files.length > 0) {
@@ -274,7 +313,7 @@ window.handleCourseUpload = function(currentIndex, totalCourses, isSkip = false)
             const displayEl = document.getElementById(`uploaded-file-display-${currentIndex}`);
             const uploadArea = document.getElementById(`upload-area-${currentIndex}`);
             const skipBtn = document.getElementById(`skip-btn-${currentIndex}`);
-            
+
             if (displayEl && textEl) {
                 textEl.innerHTML = `✓ Uploaded: ${filesList}`;
                 displayEl.classList.remove('hidden');
@@ -290,7 +329,7 @@ window.handleCourseUpload = function(currentIndex, totalCourses, isSkip = false)
         const displayEl = document.getElementById(`uploaded-file-display-${currentIndex}`);
         const uploadArea = document.getElementById(`upload-area-${currentIndex}`);
         const skipBtn = document.getElementById(`skip-btn-${currentIndex}`);
-        
+
         if (displayEl && textEl) {
             textEl.innerHTML = `<em>No file uploaded.</em>`;
             displayEl.classList.remove('hidden');
@@ -307,22 +346,22 @@ window.handleCourseUpload = function(currentIndex, totalCourses, isSkip = false)
         const nextBlock = document.getElementById(`upload-block-${nextIndex}`);
         if (nextBlock) nextBlock.classList.remove('hidden');
     }
-    
+
     checkAllUploadsComplete(totalCourses);
 }
 
-window.discardCourseUpload = function(currentIndex, totalCourses) {
+window.discardCourseUpload = function (currentIndex, totalCourses) {
     const fileInput = document.getElementById(`file-input-${currentIndex}`);
     if (fileInput) fileInput.value = '';
-    
+
     const displayEl = document.getElementById(`uploaded-file-display-${currentIndex}`);
     const uploadArea = document.getElementById(`upload-area-${currentIndex}`);
     const skipBtn = document.getElementById(`skip-btn-${currentIndex}`);
-    
+
     if (displayEl) displayEl.classList.add('hidden');
     if (uploadArea) uploadArea.classList.remove('hidden');
     if (skipBtn) skipBtn.classList.remove('hidden');
-    
+
     checkAllUploadsComplete(totalCourses);
 }
 
@@ -335,7 +374,7 @@ function checkAllUploadsComplete(totalCourses) {
             break;
         }
     }
-    
+
     const analyzeBtn = document.getElementById('analyze-materials-btn');
     if (analyzeBtn) {
         if (allDone) {
@@ -356,36 +395,50 @@ function checkAllUploadsComplete(totalCourses) {
     }
 }
 
-window.submitMaterials = function(cardId) {
+window.submitMaterials = function (cardId) {
     const card = document.getElementById(cardId);
-    if(card) {
+    if (card) {
         card.style.opacity = '0.6';
         card.style.pointerEvents = 'none';
         const btn = card.querySelector('button');
-        if(btn) btn.textContent = "Analyzing... ✓";
+        if (btn) btn.textContent = "Curating... ✓";
     }
-    
-    appendMessage('user', "I have uploaded my course materials.");
-    
+
+    appendMessage('user', "I have specified my syllabus scope and requested material curation.");
+
     const loadingId = 'loading-' + Date.now();
-    appendMessage('assistant', `<span id="${loadingId}">Curating videos from YouTube and NPTEL... ⏳</span>`);
-    
-    setTimeout(() => {
+    appendMessage('assistant', `<span id="${loadingId}">Curating authoritative video lectures from NPTEL & YouTube... ⏳</span>`);
+
+    try {
+        const selectedTopics = (studyContext.availableTopics || []).filter((t, idx) => {
+            const cb = document.getElementById(`topic-${idx}`);
+            return cb ? cb.checked : true;
+        });
+
+        const materialsData = await apiClient.curateMaterials({
+            courses: studyContext.courses.filter(c => c.selected !== false),
+            topics: selectedTopics
+        });
+
         const loadingEl = document.getElementById(loadingId);
         if (loadingEl) loadingEl.parentElement.parentElement.remove();
-        showCuratedMaterials();
-    }, 1500);
+
+        showCuratedMaterials(materialsData);
+    } catch (err) {
+        const loadingEl = document.getElementById(loadingId);
+        if (loadingEl) loadingEl.parentElement.parentElement.remove();
+        appendMessage('assistant', `⚠️ Could not curate materials: ${err.message}`);
+    }
 }
 
 // ----------------------------------------------------
 // UI Flow: Step 3 - Curated Materials & Constraints
 // ----------------------------------------------------
-function showCuratedMaterials() {
-    const materials = demoData.gemma_materials;
+function showCuratedMaterials(materials) {
     appendMessage('assistant', escapeHtml(materials.reply));
 
     let videosHtml = '';
-    materials.videos.forEach(v => {
+    (materials.videos || []).forEach(v => {
         const badgeClass = v.platform === 'YouTube' ? 'badge-youtube' : 'badge-nptel';
         const icon = v.platform === 'YouTube' ? '▶️' : '🎓';
         videosHtml += `
@@ -393,7 +446,7 @@ function showCuratedMaterials() {
                 <div class="video-icon">${icon}</div>
                 <div>
                     <a href="${escapeHtml(v.url)}" target="_blank" class="video-title">${escapeHtml(v.title)}</a>
-                    <span class="video-meta"><span class="${badgeClass}">${escapeHtml(v.platform)}</span> Curated for you</span>
+                    <span class="video-meta"><span class="${badgeClass}">${escapeHtml(v.platform)}</span> ${escapeHtml(v.channel || 'Curated Resource')}</span>
                 </div>
             </div>
         `;
@@ -409,62 +462,74 @@ function showCuratedMaterials() {
             
             <h4 style="margin-top:24px;">Personal Study Constraints</h4>
             <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">
-                Add any personal rules for Gemma (e.g. "won't study at night", "want to play in evening").
+                Add personal rules for Gemma 4 (e.g. "prefer studying in morning", "keep 2 hours for sports in evening").
             </p>
             <div class="chat-input-wrapper" style="margin-bottom: 16px;">
-                <textarea id="constraints-input-${cardId}" rows="2" placeholder="Type constraints here..."></textarea>
+                <textarea id="constraints-input-${cardId}" rows="2" placeholder="e.g. Keep evening slots for revision..."></textarea>
             </div>
 
-            <button class="btn btn-primary w-full" onclick="generateRoadmap('${cardId}')">Build My Final Roadmap</button>
+            <button class="btn btn-primary w-full" onclick="generateRoadmap('${cardId}')">Build My Final Roadmap with Gemma 4</button>
         </div>
     `;
-    
+
     appendCustomCard(cardHtml);
 }
 
-
-window.generateRoadmap = function(cardId) {
+window.generateRoadmap = async function (cardId) {
     const card = document.getElementById(cardId);
     let constraints = "";
-    if(card) {
+    if (card) {
         const inputArea = document.getElementById(`constraints-input-${cardId}`);
-        if(inputArea) {
+        if (inputArea) {
             constraints = inputArea.value.trim();
         }
         card.style.opacity = '0.6';
         card.style.pointerEvents = 'none';
         const btn = card.querySelector('button');
-        if(btn) btn.textContent = "Building... ✓";
+        if (btn) btn.textContent = "Building... ✓";
     }
-    
-    let msg = "Generate my roadmap.";
+
+    let msg = "Generate my personalized roadmap.";
     if (constraints) {
         msg += `\nMy constraints: "${constraints}"`;
     }
     appendMessage('user', msg);
-    
+
     const loadingId = 'loading-' + Date.now();
-    appendMessage('assistant', `<span id="${loadingId}">Synthesizing plan constraints... ⏳</span>`);
-    
-    setTimeout(() => {
+    appendMessage('assistant', `<span id="${loadingId}">Gemma 4 is synthesizing credit weights, buffer days, and pedagogical constraints... ⏳</span>`);
+
+    try {
+        const roadmapData = await apiClient.generateRoadmap({
+            courses: studyContext.courses.filter(c => c.selected !== false),
+            constraints: constraints,
+            daily_hours: studyContext.study_hours || 4,
+            start_date: studyContext.start_date
+        });
+
         const loadingEl = document.getElementById(loadingId);
         if (loadingEl) loadingEl.parentElement.parentElement.remove();
-        showRoadmap();
-    }, 1500);
+
+        showRoadmap(roadmapData);
+    } catch (err) {
+        const loadingEl = document.getElementById(loadingId);
+        if (loadingEl) loadingEl.parentElement.parentElement.remove();
+        appendMessage('assistant', `⚠️ Could not generate roadmap: ${err.message}`);
+    }
 }
 
 // ----------------------------------------------------
 // UI Flow: Step 4 - Final Roadmap
 // ----------------------------------------------------
-function showRoadmap() {
-    const planner = demoData.gemma_planner;
+function showRoadmap(planner) {
     appendMessage('assistant', escapeHtml(planner.reply));
+
+    const studyPlan = planner.study_plan || [];
 
     // TIMELINE VIEW
     let timelineHtml = '<div class="timeline">';
-    planner.study_plan.forEach(day => {
+    studyPlan.forEach(day => {
         let details = '';
-        day.blocks.forEach(b => {
+        (day.blocks || []).forEach(b => {
             let topicsStr = b.topics ? b.topics.join(", ") : (b.note || "");
             const timeStr = b.time_range ? `[${b.time_range}] ` : '';
             details += `<strong>${escapeHtml(b.course || b.type.toUpperCase())}</strong>: ${escapeHtml(topicsStr)} <span style="color:var(--text-muted); font-size:0.8rem;">${timeStr}(${b.hours}h)</span><br>`;
@@ -479,11 +544,11 @@ function showRoadmap() {
     });
     timelineHtml += '</div>';
 
-    // SCHEDULE VIEW (Premium Layout)
+    // SCHEDULE VIEW
     let scheduleHtml = '';
-    planner.study_plan.forEach(day => {
+    studyPlan.forEach(day => {
         let blocksHtml = '';
-        day.blocks.forEach(b => {
+        (day.blocks || []).forEach(b => {
             let badgeHtml = '';
             if (b.type === 'study') badgeHtml = `<span class="badge-study">Study</span>`;
             else if (b.type === 'revision') badgeHtml = `<span class="badge-revision">Revision</span>`;
@@ -502,7 +567,7 @@ function showRoadmap() {
             if (b.reference) {
                 refHtml = `<div class="block-reference">🔗 ${escapeHtml(b.reference)}</div>`;
             }
-            
+
             const timeDisplay = b.time_range ? b.time_range : `${b.hours}h`;
 
             blocksHtml += `
@@ -510,7 +575,7 @@ function showRoadmap() {
                     <div class="block-time" style="font-size:0.95rem;">${escapeHtml(timeDisplay)}</div>
                     <div class="block-content">
                         <div class="block-header">
-                            <span class="block-course">${escapeHtml(b.course || 'Flex Time')}</span>
+                            <span class="block-course">${escapeHtml(b.course || 'Study Block')}</span>
                             ${badgeHtml}
                         </div>
                         <div class="topic-pills">
@@ -536,7 +601,7 @@ function showRoadmap() {
     const cardHtml = `
         <div class="inline-card" id="${cardId}">
             <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:12px; margin-bottom:16px;">
-                <h4 style="border-bottom:none; margin:0; padding:0;">Study Roadmap</h4>
+                <h4 style="border-bottom:none; margin:0; padding:0;">Personalized Study Roadmap</h4>
                 <div class="roadmap-controls" style="margin-bottom:0;">
                     <button class="btn btn-outline btn-sm" onclick="switchRoadmapView('${cardId}', 'timeline')">Timeline</button>
                     <button class="btn btn-outline btn-sm" onclick="switchRoadmapView('${cardId}', 'schedule')">Daily blocks</button>
@@ -550,14 +615,14 @@ function showRoadmap() {
             </div>
         </div>
     `;
-    
+
     appendCustomCard(cardHtml);
 }
 
-window.switchRoadmapView = function(cardId, viewType) {
+window.switchRoadmapView = function (cardId, viewType) {
     const timelineView = document.getElementById(`${cardId}-timeline-view`);
     const scheduleView = document.getElementById(`${cardId}-schedule-view`);
-    
+
     if (viewType === 'timeline') {
         timelineView.classList.remove('hidden');
         scheduleView.classList.add('hidden');
@@ -565,4 +630,4 @@ window.switchRoadmapView = function(cardId, viewType) {
         timelineView.classList.add('hidden');
         scheduleView.classList.remove('hidden');
     }
-}
+};

@@ -82,3 +82,49 @@ def set_course_topic_scope(scope: TopicScopeRequest):
         "in_syllabus_count": sum(1 for t in scoped_topics if t["in_syllabus"]),
         "topics": scoped_topics
     }
+
+class CourseTopicsBatchRequest(BaseModel):
+    courses: Optional[List[dict]] = None
+    course_codes: Optional[List[str]] = None
+
+@router.post("/topics", summary="Get decomposed topics for selected courses")
+def get_topics_for_selected_courses(req: CourseTopicsBatchRequest):
+    """
+    Returns mapped topics for confirmed courses matching frontend demo format.
+    """
+    codes = set()
+    if req.course_codes:
+        codes.update([c.upper().strip() for c in req.course_codes])
+    if req.courses:
+        for c in req.courses:
+            if isinstance(c, dict) and "code" in c:
+                codes.add(c["code"].upper().strip())
+            elif isinstance(c, str):
+                codes.add(c.upper().strip())
+
+    topics_result = []
+    for code in codes:
+        course = get_course_by_code(code)
+        course_name = course.name if course else code
+        if course and course.topics:
+            for t in course.topics:
+                topics_result.append({
+                    "course": course_name,
+                    "code": course.code,
+                    "topic": t.title,
+                    "included": True
+                })
+        else:
+            # Generate foundational topics for course
+            topics_result.append({
+                "course": course_name,
+                "code": code,
+                "topic": f"Core Foundations and Practical Applications of {code}",
+                "included": True
+            })
+
+    return {
+        "reply": "I have mapped out the core topics for your selected courses. You can exclude topics you already know. Also, upload any class slides/syllabus PDFs below, and let me know if you need curated video explanations!",
+        "topics": topics_result
+    }
+
